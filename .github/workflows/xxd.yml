@@ -1,4 +1,4 @@
-﻿# ------------------------------------------------------------------------------
+﻿﻿# ------------------------------------------------------------------------------
 #  Copyright Christopher Kormanyos 2022.
 #  Distributed under the Boost Software License,
 #  Version 1.0. (See accompanying file LICENSE_1_0.txt
@@ -37,6 +37,8 @@ jobs:
           ls -la ./xxd.exe
           echo './xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin'
           ./xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin
+          echo 'sha1sum ./xxd_result.bin | grep 0f4ccc0238aa184802686e928793277da5a2dc7c'
+          sha1sum ./xxd_result.bin | grep 0f4ccc0238aa184802686e928793277da5a2dc7c
   msvc-release-x64:
     runs-on: windows-2019
     steps:
