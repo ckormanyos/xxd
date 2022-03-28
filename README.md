@@ -1,4 +1,7 @@
-# xxd
+ckormanyos/xxd\
+[![Build Status](https://github.com/ckormanyos/xxd/actions/workflows/xxd.yml/badge.svg)](https://github.com/ckormanyos/xxd/actions)
+==================
+
 This is the well-known hex-dump-type utility `xxd` commonly distributed as a part of vim-project.
 
 ## Build
