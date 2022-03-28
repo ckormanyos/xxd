@@ -36,9 +36,7 @@ jobs:
           echo 'ls -la ./xxd.exe'
           ls -la ./xxd.exe
           echo './xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin'
-          ./xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin
-          echo 'sha1sum ./xxd_result.bin | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7'
-          sha1sum ./xxd_result.bin | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
+          ./xxd.exe -l 120 -c 12 ./doc/xxd.1
   msvc-release-x64:
     runs-on: windows-2019
     steps:
@@ -54,5 +52,4 @@ jobs:
           MSBuild -m xxd.sln -p:useenv=true -p:Configuration=Release -p:Platform=x64 /t:Rebuild
           dir %cd%\x64\Release\xxd.exe
           cd %cd%\x64\Release
-          xxd.exe -l 120 -c 12 ..\..\doc\xxd.1 > xxd_result.bin
-          certutil -hashfile ".\xxd_result.bin" SHA1 | findstr "b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7"
+          .\xxd.exe -l 120 -c 12 ..\..\doc\xxd.1
