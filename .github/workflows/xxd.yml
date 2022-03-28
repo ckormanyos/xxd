@@ -36,7 +36,7 @@ jobs:
           echo 'ls -la ./xxd.exe'
           ls -la ./xxd.exe
           echo './xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin'
-          ./xxd.exe -l 120 -c 12 ./doc/xxd.1
+          ./xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin
   msvc-release-x64:
     runs-on: windows-2019
     steps:
@@ -52,4 +52,5 @@ jobs:
           MSBuild -m xxd.sln -p:useenv=true -p:Configuration=Release -p:Platform=x64 /t:Rebuild
           dir %cd%\x64\Release\xxd.exe
           cd %cd%\x64\Release
-          .\xxd.exe -l 120 -c 12 ..\..\doc\xxd.1
+          .\xxd.exe -l 120 -c 12 ..\..\doc\xxd.1 > xxd_result.bin
+          certutil -hashfile ".\xxd_result.bin"
