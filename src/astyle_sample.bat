@@ -1,0 +1,2 @@
+.\astyle.exe --style=allman --lineend=windows --indent=spaces=2 --indent-switches --indent-cases --add-brackets --align-pointer=type --unpad-paren --break-blocks --pad-oper --indent-namespaces xxd.c
+.\astyle.exe --style=allman --lineend=windows --indent=spaces=2 --indent-switches --indent-cases --add-brackets --align-pointer=type --unpad-paren --break-blocks --pad-oper --indent-namespaces config.h
