@@ -8,9 +8,6 @@
     <Filter Include="Source Files\src">
       <UniqueIdentifier>{ea9f3976-f4f2-4092-8c6f-c827e4b552fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="_doc">
-      <UniqueIdentifier>{4cdd75a8-bca2-4579-82fe-a133ede94913}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\xxd.c">
@@ -21,10 +18,5 @@
     <ClInclude Include="src\config.h">
       <Filter>Source Files\src</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md">
-      <Filter>_doc</Filter>
-    </None>
   </ItemGroup>
 </Project>

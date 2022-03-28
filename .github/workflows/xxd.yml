@@ -1,0 +1,50 @@
+﻿# ------------------------------------------------------------------------------
+#  Copyright Christopher Kormanyos 2022.
+#  Distributed under the Boost Software License,
+#  Version 1.0. (See accompanying file LICENSE_1_0.txt
+#  or copy at http://www.boost.org/LICENSE_1_0.txt)
+# ------------------------------------------------------------------------------
+
+name: xxd
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+jobs:
+  gcc-native:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [ g++, clang++ ]
+        standard: [ c99, c11 ]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: gcc-native
+        run: |
+          echo "query GCC version"
+          g++ -v
+          echo "build xxd"
+          echo '${{ matrix.compiler }}++ -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
+          ${{ matrix.compiler }}++ -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
+          ls -la ./xxd.exe
+  msvc-release-x64:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - uses: actions/checkout@v1
+      - uses: ilammy/msvc-dev-cmd@v1
+      - name: msvc-release-x64
+        shell: cmd
+        working-directory: ./
+        run: |
+          MSBuild -m xxd.sln -p:useenv=true -p:Configuration=Release -p:Platform=x64 /t:Rebuild
+          dir %cd%\x64\Release\xxd.exe
