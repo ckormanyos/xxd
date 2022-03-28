@@ -32,9 +32,10 @@ jobs:
           g++ -v
           echo "build xxd"
           echo '${{ matrix.compiler }}++ -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
-          ${{ matrix.compiler }} -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
+          ${{ matrix.compiler }} -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
+          echo 'ls -la ./xxd.exe'
           ls -la ./xxd.exe
-          xxd.1 > xxd_result.bin
+          echo './xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin'
           ./xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin
           echo 'sha1sum ./xxd_result.bin | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7'
           sha1sum ./xxd_result.bin | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
@@ -52,6 +53,6 @@ jobs:
         run: |
           MSBuild -m xxd.sln -p:useenv=true -p:Configuration=Release -p:Platform=x64 /t:Rebuild
           dir %cd%\x64\Release\xxd.exe
-          cd x64\Release
-          .\xxd.exe -l 120 -c 12 ..\..\doc\xxd.1 > xxd_result.bin
+          cd %cd%\x64\Release
+          xxd.exe -l 120 -c 12 ..\..\doc\xxd.1 > xxd_result.bin
           certutil -hashfile ".\xxd_result.bin" SHA1 | findstr "b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7"
