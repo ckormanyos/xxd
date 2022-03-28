@@ -12,7 +12,7 @@ on:
       - '**'
   pull_request:
 jobs:
-  gcc-native:
+  gcc-clang-native:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -35,10 +35,10 @@ jobs:
           ${{ matrix.compiler }} -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
           echo 'ls -la ./xxd.exe'
           ls -la ./xxd.exe
-          echo './xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin'
-          ./xxd.exe -l 120 -c 12 ./doc/xxd.1 > xxd_result.bin
-          echo 'sha1sum ./xxd_result.bin | grep 0f4ccc0238aa184802686e928793277da5a2dc7c'
-          sha1sum ./xxd_result.bin | grep 0f4ccc0238aa184802686e928793277da5a2dc7c
+          echo 'create zero_a.bin'
+          echo "010000: 41" | xxd -r > zero_a.bin
+          echo 'sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63'
+          sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63
   msvc-release-x64:
     runs-on: windows-2019
     steps:
@@ -54,5 +54,6 @@ jobs:
           MSBuild -m xxd.sln -p:useenv=true -p:Configuration=Release -p:Platform=x64 /t:Rebuild
           dir %cd%\x64\Release\xxd.exe
           cd %cd%\x64\Release
-          .\xxd.exe -l 120 -c 12 ..\..\doc\xxd.1 > xxd_result.bin
-          certutil -hashfile ".\xxd_result.bin"
+          echo "create zero_a.bin"
+          echo "010000: 41" | xxd -r > zero_a.bin
+          certutil -hashfile "zero_a.bin" | findstr "e534caeb1e149b6bc61ea48cf59861c7e15caa63"
