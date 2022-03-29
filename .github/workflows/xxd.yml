@@ -48,6 +48,11 @@ jobs:
           unix2dos xxd.1.txt
           echo 'sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7'
           sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
+          echo 'test2 with doc/xxd.1'
+          xxd -s 0x36 -l 13 -c 13 ./doc/xxd.1 | grep '21st May 1996'
+          echo 'create a 3-byte abc-file'
+          echo "0:61 1:62 2:63" | xxd -r > abc.bin
+          sha1sum abc.bin | grep a9993e364706816aba3e25717850c26c9cd0d89d
   msvc-release-x64:
     runs-on: windows-2019
     steps:
@@ -66,7 +71,12 @@ jobs:
           echo "create zero_a.bin"
           echo "010000: 41" | xxd -r > zero_a.bin
           certutil -hashfile "zero_a.bin" SHA1 | findstr "e534caeb1e149b6bc61ea48cf59861c7e15caa63"
-          echo "test with doc\xxd.1"
+          echo test with ../../doc/xxd.1
           xxd -l 120 -c 12 ..\..\doc\xxd.1 | findstr "Tony Nugent"
           xxd -l 120 -c 12 ..\..\doc\xxd.1 > xxd.1.txt
           certutil -hashfile "xxd.1.txt" SHA1 | findstr "b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7"
+          echo test2 with ../../doc/xxd.1
+          xxd -s 0x36 -l 13 -c 13 ..\..\doc\xxd.1 | findstr "21st May 1996"
+          echo create a 3-byte abc-file
+          echo 0:61 1:62 2:63 | xxd -r > abc.bin
+          certutil -hashfile "abc.bin" SHA1 | findstr "a9993e364706816aba3e25717850c26c9cd0d89d"

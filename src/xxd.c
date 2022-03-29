@@ -55,7 +55,7 @@
  * 11.01.2019  Add full 64/32 bit range to -o and output by Christer Jensen.
  * 04.02.2020  Add -d for decimal offsets by Aapo Rantalainen
  * 14.01.2022  Disable extra newlines with -c0 -p by Erik Auerswald.
- * 28.03.2022  Build for MSVC by Christopher Kormanyos.
+ * 28.03.2022  Adapted for MSVC/GCC/clang standalone build by Christopher Kormanyos.
  *
  * (c) 1990-1998 by Juergen Weigert (jnweiger@gmail.com)
  *
@@ -201,7 +201,8 @@ char osver[] = "";
 #define COLS 256  /* change here, if you ever need more columns */
 #define LLEN ((2*(int)sizeof(unsigned long)) + 4 + (9*COLS-1) + COLS + 2)
 
-char hexxa[] = "0123456789abcdef0123456789ABCDEF", *hexx = hexxa;
+const char hexxa[] = "0123456789abcdef0123456789ABCDEF";
+const char* hexx = hexxa;
 
 /* the different hextypes known by this program: */
 #define HEX_NORMAL 0

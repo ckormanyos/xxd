@@ -2,13 +2,14 @@ ckormanyos/xxd\
 [![Build Status](https://github.com/ckormanyos/xxd/actions/workflows/xxd.yml/badge.svg)](https://github.com/ckormanyos/xxd/actions)
 ==================
 
-This is the well-known hex-dump-type utility `xxd` commonly distributed as a part of vim-project.
+This is the well-known hex-dump-type utility `xxd` commonly distributed
+as a part of vim-project. This version of `xxd` has been adapted
+for MSVC/GCC/clang standalone build.
 
 ## Build
 
 This version of the source code has been adapted for build on both `Win*`
-as well as `*nix`. On `Win*` the build is accomplished via MSVC using
-a `*.sln` workspace and its associated project file.
+as well as `*nix`.
 
 ### Build on `Win*` with MSVC
 
@@ -44,12 +45,17 @@ The following adaptions have been undertaken.
 
 ## Usage
 
-The program manual states: make a hexdump or do the reverse,
-which is the main features of the utility.
+The program manual at the [xxd(1) - Linux man page](https://linux.die.net/man/1/xxd)
+states:
+
+`xxd` - make a hexdump or do the reverse.
+
 It can do nearly everything hexdump can and moreover perform
 the reversal translation of hex-like text back to binary representation.
-Like  uuencode and uudecode it allows the transmission of binary data in a `mail-safe`
-ASCII representation, but has the advantage of decoding to  standard output.
+Like [uuencode](https://linux.die.net/man/1/uuencode)
+and [uudecode](https://linux.die.net/man/1/uudecode)
+it allows the transmission of binary data in a `mail-safe`
+ASCII representation, but has the advantage of decoding to standard output.
 Moreover, it can be used to perform binary file patching.
 
 ### Examples
