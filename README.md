@@ -3,7 +3,8 @@ ckormanyos/xxd\
 ==================
 
 This is the well-known hex-dump-type utility `xxd` commonly distributed
-as a part of vim-project. This version of `xxd` has been adapted
+as a part of the [vim-project](https://www.vim.org).
+The version of `xxd` in this repository has been adapted
 for MSVC/GCC/clang standalone build.
 
 ## Build
@@ -13,23 +14,24 @@ as well as `*nix`.
 
 ### Build on `Win*` with MSVC
 
-On `Win*` simply open the `xxd.sln` workspace. Rebuild Release
-(i.e., for the `x64` project configuration). After building,
-find the executable `xxd.exe` in the expected output directory.
+On `Win*` with MSVC simply:
+
+  - Open the `xxd.sln` workspace.
+  - Rebuild `Release` (i.e., for the `x64` project configuration).
+  - After building, find the executable `xxd.exe` in the expected output directory.
 
 ### Build on `*nix` on the command line
 
 On `*nix` it is straightforward to build on the command line.
 
-Switch to the `xxd`directory.
+  - Switch to the `xxd`directory.
+  - Build (for instance with GCC) using an easy command, as shown below.
+  - This compiles `src/xxd.c` to `xxd.exe`.
+
+In other words,
 
 ```sh
 cd xxd
-```
-Build (with GCC for instance) with the following command,
-which compiles `src/xxd.c` to `xxd.exe`.
-
-```sh
 g++ -x c -std=c99 -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
 ```
 
