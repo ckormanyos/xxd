@@ -65,8 +65,6 @@
  * Contributions by Bram Moolenaar et al.
  */
 
-#include "config.h"
-
 // cd /mnt/c/Users/User/Documents/Ks/PC_Software/xxd
 // g++ -x c -std=c11 -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
 

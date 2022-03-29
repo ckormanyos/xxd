@@ -21,12 +21,13 @@ find the executable `xxd.exe` in the expected output directory.
 
 On `*nix` it is straightforward to build on the command line.
 
-Switch to the `src`directory.
+Switch to the `xxd`directory.
 
 ```sh
-cd src
+cd xxd
 ```
-Build with GCC, for instance, with the following command.
+Build (with GCC for instance) with the following command,
+which compiles `src/xxd.c` to `xxd.exe`.
 
 ```sh
 g++ -x c -std=c99 -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
@@ -37,11 +38,12 @@ g++ -x c -std=c99 -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src
 The following adaptions have been undertaken.
 
   - Create an MSVC `*.sln` workspace and associated project configuration.
-  - Adapt and use the configuration header [`config.h`](./src/config.h).
+  - Disregard (delete and do not use) use the configuration header `config.h.in`.
   - Replace the compiler switch `WIN32` with MSVC's standard `_WIN32`.
   - Run the `xxd.c`/`config.h` files through the [Artistic Style](http://astyle.sourceforge.net/astyle.html) automatic code formatter, using a version of _AStyle_ from somewhere around 2015.
   - Handle Level-3 warnings found in MSVC.
   - Handle GCC warnings from `-Wall`, `-Wextra`, `-pedantic`, `-Wconversion` and `-Wsign-conversion`.
+  - Add CI consisting of MSVC/GCC/clang builds and a handful of straightforward test cases.
 
 ## Usage
 
