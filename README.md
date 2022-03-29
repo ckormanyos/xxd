@@ -18,14 +18,14 @@ find the executable `xxd.exe` in the expected output directory.
 
 ### Build on `*nix` on the command line
 
-On `*nix` simply build on the command line.
+On `*nix` it is straightforward to build on the command line.
 
 Switch to the `src`directory.
 
 ```sh
 cd src
 ```
-Build with GCC on the commmand line, for instance, with the following.
+Build with GCC, for instance, with the following command.
 
 ```sh
 g++ -x c -std=c99 -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
@@ -142,10 +142,15 @@ This project extracts the code, creates an MSVC solution workspace and provides
 the ability to easily build `xxd` on `Win*` or `*nix`.
 
 The original code was taken from: [vim github repo](https://github.com/vim/vim) on 28-March-2022.
-The simplicity of the code port was established, among in other places,
-also in [fancer/xxd](https://github.com/fancer/xxd).
+The simplicity of the code port has been previously established (among other places)
+in [fancer/xxd](https://github.com/fancer/xxd).
 
-The `xxd` code copyrights are left untouched except for adding an additional note regarding the MSVC build.
+The `xxd` code copyrights are left untouched
+except for adding an additional note regarding the MSVC build.
 The license as well as the license declaration are left untouched.
 This original package is licensed by GPL-2.0. This version retains compatibility with the
 licensing of the original utility.
+
+Continuous integration runs with GCC, clang and MSVC.
+The CI runs exercise both building `xxd` as well as running
+several straightforward `xxd` test cases.

@@ -2,51 +2,51 @@
  *
  *  2.10.90 changed to word output
  *  3.03.93 new indent style, dumb bug inserted and fixed.
- *	    -c option, mls
+ *      -c option, mls
  * 26.04.94 better option parser, -ps, -l, -s added.
  *  1.07.94 -r badly needs - as input file.  Per default autoskip over
- *	       consecutive lines of zeroes, as unix od does.
- *	    -a shows them too.
- *	    -i dump as c-style #include "file.h"
+ *         consecutive lines of zeroes, as unix od does.
+ *      -a shows them too.
+ *      -i dump as c-style #include "file.h"
  *  1.11.95 if "xxd -i" knows the filename, an 'unsigned char filename_bits[]'
- *	    array is written in correct c-syntax.
- *	    -s improved, now defaults to absolute seek, relative requires a '+'.
- *	    -r improved, now -r -s -0x... is supported.
- *	       change/suppress leading '\0' bytes.
- *	    -l n improved: stops exactly after n bytes.
- *	    -r improved, better handling of partial lines with trailing garbage.
- *	    -r improved, now -r -p works again!
- *	    -r improved, less flushing, much faster now! (that was silly)
+ *      array is written in correct c-syntax.
+ *      -s improved, now defaults to absolute seek, relative requires a '+'.
+ *      -r improved, now -r -s -0x... is supported.
+ *         change/suppress leading '\0' bytes.
+ *      -l n improved: stops exactly after n bytes.
+ *      -r improved, better handling of partial lines with trailing garbage.
+ *      -r improved, now -r -p works again!
+ *      -r improved, less flushing, much faster now! (that was silly)
  *  3.04.96 Per repeated request of a single person: autoskip defaults to off.
  * 15.05.96 -v added. They want to know the version.
- *	    -a fixed, to show last line inf file ends in all zeros.
- *	    -u added: Print upper case hex-letters, as preferred by unix bc.
- *	    -h added to usage message. Usage message extended.
- *	    Now using outfile if specified even in normal mode, aehem.
- *	    No longer mixing of ints and longs. May help doze people.
- *	    Added binify ioctl for same reason. (Enough Doze stress for 1996!)
+ *      -a fixed, to show last line inf file ends in all zeros.
+ *      -u added: Print upper case hex-letters, as preferred by unix bc.
+ *      -h added to usage message. Usage message extended.
+ *      Now using outfile if specified even in normal mode, aehem.
+ *      No longer mixing of ints and longs. May help doze people.
+ *      Added binify ioctl for same reason. (Enough Doze stress for 1996!)
  * 16.05.96 -p improved, removed occasional superfluous linefeed.
  * 20.05.96 -l 0 fixed. tried to read anyway.
  * 21.05.96 -i fixed. now honours -u, and prepends __ to numeric filenames.
- *	    compile -DWIN32 for NT or W95. George V. Reilly, * -v improved :-)
- *	    support --gnuish-longhorn-options
+ *      compile -DWIN32 for NT or W95. George V. Reilly, * -v improved :-)
+ *      support --gnuish-longhorn-options
  * 25.05.96 MAC support added: CodeWarrior already uses ``outline'' in Types.h
- *	    which is included by MacHeaders (Axel Kielhorn). Renamed to
- *	    xxdline().
+ *      which is included by MacHeaders (Axel Kielhorn). Renamed to
+ *      xxdline().
  *  7.06.96 -i printed 'int' instead of 'char'. *blush*
- *	    added Bram's OS2 ifdefs...
+ *      added Bram's OS2 ifdefs...
  * 18.07.96 gcc -Wall @ SunOS4 is now silent.
- *	    Added osver for MSDOS/DJGPP/WIN32.
+ *      Added osver for MSDOS/DJGPP/WIN32.
  * 29.08.96 Added size_t to strncmp() for Amiga.
  * 24.03.97 Windows NT support (Phil Hanna). Clean exit for Amiga WB (Bram)
  * 02.04.97 Added -E option, to have EBCDIC translation instead of ASCII
- *	    (azc10@yahoo.com)
+ *      (azc10@yahoo.com)
  * 22.05.97 added -g (group octets) option (jcook@namerica.kla.com).
  * 23.09.98 nasty -p -r misfeature fixed: slightly wrong output, when -c was
- *	    missing or wrong.
+ *      missing or wrong.
  * 26.09.98 Fixed: 'xxd -i infile outfile' did not truncate outfile.
  * 27.10.98 Fixed: -g option parser required blank.
- *	    option -b added: 01000101 binary output in normal format.
+ *      option -b added: 01000101 binary output in normal format.
  * 16.05.00 Added VAXC changes by Stephen P. Wall
  * 16.05.00 Improved MMS file and merge for VMS by Zoltan Arpadffy
  * 2011 March  Better error handling by Florian Zumbiehl.
@@ -68,7 +68,7 @@
 #include "config.h"
 
 // cd /mnt/c/Users/User/Documents/Ks/PC_Software/xxd
-// g++ -x c -std=c99 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
+// g++ -x c -std=c11 -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
 
 /* Visual Studio 2005 has 'deprecated' many of the standard CRT functions */
 #if defined(_MSC_VER) && (_MSC_VER >= 1400)
@@ -91,18 +91,18 @@
 # include <fcntl.h>
 #endif
 #if defined(_WIN32) || defined(CYGWIN)
-# include <io.h>	/* for setmode() */
+# include <io.h>  /* for setmode() */
 #else
 # ifdef UNIX
 #  include <unistd.h>
 # endif
 #endif
 #include <stdlib.h>
-#include <string.h>	/* for strncmp() */
-#include <ctype.h>	/* for isalnum() */
+#include <string.h>  /* for strncmp() */
+#include <ctype.h>  /* for isalnum() */
 #include <limits.h>
 #if __MWERKS__ && !defined(BEBOX)
-# include <unix.h>	/* for fdopen() on MAC */
+# include <unix.h>  /* for fdopen() on MAC */
 #endif
 
 
@@ -197,8 +197,8 @@ char osver[] = "";
 # endif
 #endif
 
-#define TRY_SEEK	/* attempt to use lseek, or skip forward by reading */
-#define COLS 256	/* change here, if you ever need more columns */
+#define TRY_SEEK  /* attempt to use lseek, or skip forward by reading */
+#define COLS 256  /* change here, if you ever need more columns */
 #define LLEN ((2*(int)sizeof(unsigned long)) + 4 + (9*COLS-1) + COLS + 2)
 
 char hexxa[] = "0123456789abcdef0123456789ABCDEF", *hexx = hexxa;
@@ -207,7 +207,7 @@ char hexxa[] = "0123456789abcdef0123456789ABCDEF", *hexx = hexxa;
 #define HEX_NORMAL 0
 #define HEX_POSTSCRIPT 1
 #define HEX_CINCLUDE 2
-#define HEX_BITS 3		/* not hex a dump, but bits: 01111001 */
+#define HEX_BITS 3    /* not hex a dump, but bits: 01111001 */
 #define HEX_LITTLEENDIAN 4
 
 #define CONDITIONAL_CAPITALIZE(c) (capitalize ? toupper((int)c) : c)
@@ -360,7 +360,7 @@ huntype(
 
   while((c = getc(fpi)) != EOF)
   {
-    if(c == '\r')	/* Doze style input file? */
+    if(c == '\r')  /* Doze style input file? */
     {
       continue;
     }
@@ -560,8 +560,8 @@ main(int argc, char* argv[])
   int cols = 0, colsgiven = 0, nonzero = 0, autoskip = 0, hextype = HEX_NORMAL;
   int capitalize = 0, decimal_offset = 0;
   int ebcdic = 0;
-  int octspergrp = -1;	/* number of octets grouped in output */
-  int grplen;		/* total chars per octet group */
+  int octspergrp = -1;  /* number of octets grouped in output */
+  int grplen;    /* total chars per octet group */
   long length = -1, n = 0, seekoff = 0;
   unsigned long displayoff = 0;
   static char l[LLEN + 1]; /* static because it may be too big for stack */
@@ -792,13 +792,13 @@ main(int argc, char* argv[])
         argc--;
       }
     }
-    else if(!strcmp(pp, "--"))	/* end of options */
+    else if(!strcmp(pp, "--"))  /* end of options */
     {
       argv++;
       argc--;
       break;
     }
-    else if(pp[0] == '-' && pp[1])	/* unknown option */
+    else if(pp[0] == '-' && pp[1])  /* unknown option */
     {
       exit_with_usage();
     }
@@ -807,7 +807,7 @@ main(int argc, char* argv[])
       break;  /* not an option */
     }
 
-    argv++;				/* advance to next argument */
+    argv++;        /* advance to next argument */
     argc--;
   }
 
@@ -1035,7 +1035,7 @@ main(int argc, char* argv[])
   {
     grplen = octspergrp + octspergrp + 1;  /* chars per octet group */
   }
-  else	/* hextype == HEX_BITS */
+  else  /* hextype == HEX_BITS */
   {
     grplen = 8 * octspergrp + 1;
   }
