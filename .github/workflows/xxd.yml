@@ -44,8 +44,10 @@ jobs:
           echo 'test with doc/xxd.1'
           xxd -l 120 -c 12 ./doc/xxd.1 | grep 'Tony Nugent'
           xxd -l 120 -c 12 ./doc/xxd.1 > xxd.1.txt
-          echo 'sha1sum xxd.1.txt | grep 0f4ccc0238aa184802686e928793277da5a2dc7c'
-          sha1sum xxd.1.txt | grep 0f4ccc0238aa184802686e928793277da5a2dc7c
+          echo 'unix2dos xxd.1.txt'
+          unix2dos xxd.1.txt
+          echo 'sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7'
+          sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
   msvc-release-x64:
     runs-on: windows-2019
     steps:
@@ -67,4 +69,4 @@ jobs:
           echo "test with doc\xxd.1"
           xxd -l 120 -c 12 ..\..\doc\xxd.1 | findstr "Tony Nugent"
           xxd -l 120 -c 12 ..\..\doc\xxd.1 > xxd.1.txt
-          certutil -hashfile "xxd.1.txt" SHA1
+          certutil -hashfile "xxd.1.txt" SHA1 | findstr "b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7"
