@@ -47,7 +47,7 @@ jobs:
           echo 'sha1sum xxd.1.txt | grep 0f4ccc0238aa184802686e928793277da5a2dc7c'
           sha1sum xxd.1.txt | grep 0f4ccc0238aa184802686e928793277da5a2dc7c
   msvc-release-x64:
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
         with:
