@@ -14,9 +14,4 @@
       <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\config.h">
-      <Filter>Source Files\src</Filter>
-    </ClInclude>
-  </ItemGroup>
 </Project>
