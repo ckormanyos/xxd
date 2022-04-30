@@ -1,7 +1,7 @@
 ﻿ckormanyos/xxd
 ==================
 
-[![Build Status](https://github.com/ckormanyos/xxd/actions/workflows/wide_integer.yml/badge.svg)](https://github.com/ckormanyos/xxd/actions)
+[![Build Status](https://github.com/ckormanyos/xxd/actions/workflows/xxd.yml/badge.svg)](https://github.com/ckormanyos/xxd/actions)
 
 This is the well-known hex-dump-type utility `xxd` commonly distributed
 as a part of the [vim-project](https://www.vim.org).
