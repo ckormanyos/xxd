@@ -47,6 +47,7 @@ The following adaptions have been undertaken.
   - Handle Level-3 warnings found in MSVC.
   - Handle GCC warnings from `-Wall`, `-Wextra`, `-Wpedantic`, `-Wconversion` and `-Wsign-conversion`.
   - Add CI consisting of MSVC/GCC/clang builds and a handful of straightforward test cases.
+  - Upload build artifacts in CI for `xxd-x86_64-linux-gnu` and `xxd-win64-msvc`, see also discussion in [issue 11](https://github.com/ckormanyos/xxd/issues/11).
 
 ## Usage
 
