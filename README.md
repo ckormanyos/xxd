@@ -27,13 +27,13 @@ On `*nix` it is straightforward to build on the command line.
 
   - Switch to the `xxd`directory.
   - Build (for instance with GCC) using an easy command, as shown below.
-  - This compiles `src/xxd.c` to `xxd.exe`.
+  - This compiles `src/xxd.c` to `xxd`.
 
 In other words,
 
 ```sh
 cd xxd
-g++ -x c -std=c99 -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
+g++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
 ```
 
 ## Adaptions
