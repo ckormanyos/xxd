@@ -33,7 +33,7 @@ jobs:
           echo "query GCC version"
           g++ -v
           echo "build xxd"
-          echo '${{ matrix.compiler }}++ -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
+          echo '${{ matrix.compiler }}++ -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
           ${{ matrix.compiler }} -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -Wconversion -Wsign-conversion src/xxd.c -o xxd
           echo 'ls -la ./xxd'
           ls -la ./xxd
@@ -53,6 +53,24 @@ jobs:
           echo 'create a 3-byte abc-file'
           echo "0:61 1:62 2:63" | xxd -r > abc.bin
           sha1sum abc.bin | grep a9993e364706816aba3e25717850c26c9cd0d89d
+  gcc-clang-native-with-artifact:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: gcc-clang-native-with-artifact
+        run: |
+          echo "query GCC version"
+          g++ -v
+          echo "build xxd"
+          echo 'g++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
+          g++ -x c -std=c11 -O3 -Wall -Wextra -Wconversion -Wsign-conversion src/xxd.c -o xxd
+          echo 'ls -la ./xxd'
+          ls -la ./xxd
       - uses: actions/upload-artifact@v3
         with:
           name: xxd-x86_64-linux-gnu
