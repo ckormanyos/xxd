@@ -13,10 +13,13 @@ set(EXE xxd)
 
 add_executable(${EXE} ${SOURCES})
 
+if (WIN32)
+
 add_custom_command(
         TARGET xxd POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_CURRENT_BINARY_DIR}/xxd.exe        
+                ${CMAKE_CURRENT_BINARY_DIR}/xxd.exe
                 ${CMAKE_SOURCE_DIR}
                 )
 
+endif (WIN32)

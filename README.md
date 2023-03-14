@@ -8,6 +8,10 @@ as a part of the [vim-project](https://www.vim.org).
 The version of `xxd` in this repository has been adapted
 for MSVC/GCC/clang standalone build.
 
+Build artifacts (i.e., the executable xxd program) are created in CI for both
+`Win*` as well as `*nix`. These can be readily found and downloaded for
+convenient use without the need to build `ckormanyos/xxd`
+
 ## Build
 
 This version of the source code has been adapted for build on both `Win*`
@@ -34,6 +38,17 @@ In other words,
 ```sh
 cd xxd
 g++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
+```
+
+### Platform-independent build with CMake (and ninja)
+
+Build on the command line  with platform-independent CMake (and ninja) is also supported.
+
+```sh
+cd xxd
+mkdir build
+cd build
+cmake .. -G Ninja && ninja
 ```
 
 ## Adaptions
