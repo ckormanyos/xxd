@@ -1,5 +1,5 @@
 ﻿# ------------------------------------------------------------------------------
-#  Copyright Christopher Kormanyos 2022.
+#  Copyright Christopher Kormanyos 2022 - 2023.
 #  Distributed under the Boost Software License,
 #  Version 1.0. (See accompanying file LICENSE_1_0.txt
 #  or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -50,6 +50,44 @@ jobs:
           sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
           echo 'test2 with doc/xxd.1'
           xxd -s 0x36 -l 13 -c 13 ./doc/xxd.1 | grep '21st May 1996'
+          echo 'create a 3-byte abc-file'
+          echo "0:61 1:62 2:63" | xxd -r > abc.bin
+          sha1sum abc.bin | grep a9993e364706816aba3e25717850c26c9cd0d89d
+  gcc-clang-native-cmake-ninja:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: install tools
+        run: sudo apt install dos2unix ninja-build
+      - name: gcc-clang-native-cmake-ninja
+        run: |
+          echo "query GCC version"
+          g++ -v
+          echo "build xxd"
+          echo build xxd
+          mkdir build
+          cd build
+          cmake .. -G Ninja && ninja
+          echo 'ls -la ./xxd'
+          ls -la ./xxd
+          echo 'create zero_a.bin'
+          echo "010000: 41" | xxd -r > zero_a.bin
+          echo 'sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63'
+          sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63
+          echo 'test with doc/xxd.1'
+          xxd -l 120 -c 12 ../doc/xxd.1 | grep 'Tony Nugent'
+          xxd -l 120 -c 12 ../doc/xxd.1 > xxd.1.txt
+          echo 'unix2dos xxd.1.txt'
+          unix2dos xxd.1.txt
+          echo 'sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7'
+          sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
+          echo 'test2 with doc/xxd.1'
+          xxd -s 0x36 -l 13 -c 13 ../doc/xxd.1 | grep '21st May 1996'
           echo 'create a 3-byte abc-file'
           echo "0:61 1:62 2:63" | xxd -r > abc.bin
           sha1sum abc.bin | grep a9993e364706816aba3e25717850c26c9cd0d89d
