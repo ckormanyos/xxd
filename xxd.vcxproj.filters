@@ -20,5 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE" />
+    <None Include="sonar-project.properties" />
   </ItemGroup>
 </Project>

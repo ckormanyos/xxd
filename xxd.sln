@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2AF40DF4-2A76-4C93-A2F6-731BF16CD7C4}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\xxd.yml = .github\workflows\xxd.yml
+		.github\workflows\xxd_sonar.yml = .github\workflows\xxd_sonar.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_doc", "_doc", "{6ABAF5A8-FEB9-467B-8DBC-88F8BC8CFDEC}"
