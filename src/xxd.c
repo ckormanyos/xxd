@@ -996,7 +996,6 @@ main(int argc, char* argv[])
     }
 
     p = 0;
-    c = 0;
 
     while((length < 0 || p < length) && (c = getc_or_die(fp)) != EOF)
     {
