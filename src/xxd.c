@@ -559,10 +559,6 @@ static unsigned char etoa64[] =
 int
 main(int argc, char* argv[])
 {
-  FILE* fp;
-  FILE* fpo;
-
-  int c;
   int p = 0;
   int relseek = 1;
   int negseek = 0;
@@ -899,6 +895,9 @@ main(int argc, char* argv[])
     exit_with_usage();
   }
 
+  FILE* fp;
+  FILE* fpo;
+
   if(argc == 1 || (argv[1][0] == '-' && !argv[1][1]))
   {
     BIN_ASSIGN(fp = stdin, !revert);
@@ -980,6 +979,8 @@ main(int argc, char* argv[])
         }
     }
   }
+
+  int c;
 
   if(hextype == HEX_CINCLUDE)
   {
@@ -1085,9 +1086,7 @@ main(int argc, char* argv[])
     }
     else /* hextype == HEX_BITS */
     {
-      int i;
-
-      for(i = 7; i >= 0; i--)
+      for(int i = 7; i >= 0; i--)
       {
         l[c++] = (e & (1 << i)) ? '1' : '0';
       }
