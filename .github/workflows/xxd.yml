@@ -80,14 +80,14 @@ jobs:
           echo 'sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63'
           sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63
           echo 'test with doc/xxd.1'
-          xxd -l 120 -c 12 ./doc/xxd.1 | grep 'Tony Nugent'
-          xxd -l 120 -c 12 ./doc/xxd.1 > xxd.1.txt
+          xxd -l 120 -c 12 ../doc/xxd.1 | grep 'Tony Nugent'
+          xxd -l 120 -c 12 ../doc/xxd.1 > xxd.1.txt
           echo 'unix2dos xxd.1.txt'
           unix2dos xxd.1.txt
           echo 'sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7'
           sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
           echo 'test2 with doc/xxd.1'
-          xxd -s 0x36 -l 13 -c 13 ./doc/xxd.1 | grep '21st May 1996'
+          xxd -s 0x36 -l 13 -c 13 ../doc/xxd.1 | grep '21st May 1996'
           echo 'create a 3-byte abc-file'
           echo "0:61 1:62 2:63" | xxd -r > abc.bin
           sha1sum abc.bin | grep a9993e364706816aba3e25717850c26c9cd0d89d
