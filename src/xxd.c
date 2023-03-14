@@ -559,16 +559,33 @@ static unsigned char etoa64[] =
 int
 main(int argc, char* argv[])
 {
-  FILE* fp, *fpo;
-  int c, p = 0, relseek = 1, negseek = 0, revert = 0;
-  int cols = 0, colsgiven = 0, nonzero = 0, autoskip = 0, hextype = HEX_NORMAL;
-  int capitalize = 0, decimal_offset = 0;
+  FILE* fp;
+  FILE* fpo;
+
+  int c;
+  int p = 0;
+  int relseek = 1;
+  int negseek = 0;
+  int revert = 0;
+  int cols = 0;
+  int colsgiven = 0;
+  int nonzero = 0;
+  int autoskip = 0;
+  int hextype = HEX_NORMAL;
+  int capitalize = 0;
+  int decimal_offset = 0;
   int ebcdic = 0;
   int octspergrp = -1;  /* number of octets grouped in output */
   int grplen;    /* total chars per octet group */
-  long length = -1, n = 0, seekoff = 0;
+
+  long length = -1;
+  long n = 0;
+  long seekoff = 0;
+
   unsigned long displayoff = 0;
+
   static char l[LLEN + 1]; /* static because it may be too big for stack */
+
   char* pp;
   int addrlen = 9;
 
