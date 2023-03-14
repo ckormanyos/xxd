@@ -430,10 +430,15 @@ huntype(
       want_off++;
       n1 = -1;
 
-      if(!hextype && (++p >= cols))
+      if(!hextype)
         /* skip the rest of the line as garbage */
       {
-        c = skip_to_eol(fpi, c);
+        ++p;
+
+        if(p >= cols)
+        {
+          c = skip_to_eol(fpi, c);
+        }
       }
     }
     else if(n1 < 0 && n2 < 0 && n3 < 0)
@@ -479,7 +484,7 @@ huntype(
  * If nz is always positive, lines are never suppressed.
  */
 static void
-xxdline(FILE* fp, char* l, int nz)
+xxdline(FILE* fp, char* l, const int nz)
 {
   static char z[LLEN + 1];
   static int zero_seen = 0;
@@ -554,16 +559,33 @@ static unsigned char etoa64[] =
 int
 main(int argc, char* argv[])
 {
-  FILE* fp, *fpo;
-  int c, e, p = 0, relseek = 1, negseek = 0, revert = 0;
-  int cols = 0, colsgiven = 0, nonzero = 0, autoskip = 0, hextype = HEX_NORMAL;
-  int capitalize = 0, decimal_offset = 0;
+  FILE* fp;
+  FILE* fpo;
+
+  int c;
+  int p = 0;
+  int relseek = 1;
+  int negseek = 0;
+  int revert = 0;
+  int cols = 0;
+  int colsgiven = 0;
+  int nonzero = 0;
+  int autoskip = 0;
+  int hextype = HEX_NORMAL;
+  int capitalize = 0;
+  int decimal_offset = 0;
   int ebcdic = 0;
   int octspergrp = -1;  /* number of octets grouped in output */
   int grplen;    /* total chars per octet group */
-  long length = -1, n = 0, seekoff = 0;
+
+  long length = -1;
+  long n = 0;
+  long seekoff = 0;
+
   unsigned long displayoff = 0;
+
   static char l[LLEN + 1]; /* static because it may be too big for stack */
+
   char* pp;
   int addrlen = 9;
 
@@ -922,6 +944,8 @@ main(int argc, char* argv[])
                    negseek ? -seekoff : seekoff);
   }
 
+  int e = 0;
+
   if(seekoff || negseek || !relseek)
   {
 #ifdef TRY_SEEK
@@ -931,8 +955,9 @@ main(int argc, char* argv[])
       e = fseek(fp, negseek ? -seekoff : seekoff, SEEK_CUR);
     }
     else
-      e = fseek(fp, negseek ? -seekoff : seekoff,
-                negseek ? SEEK_END : SEEK_SET);
+    {
+      e = fseek(fp, negseek ? -seekoff : seekoff, negseek ? SEEK_END : SEEK_SET);
+    }
 
     if(e < 0 && negseek)
     {
