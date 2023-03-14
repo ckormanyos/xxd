@@ -70,7 +70,7 @@ jobs:
           mkdir build
           cd build
           cmake .. -G Ninja && ninja
-          dir xxd.exe'
+          dir xxd.exe
   gcc-clang-native-with-artifact:
     runs-on: ubuntu-latest
     defaults:
