@@ -178,6 +178,8 @@ The license as well as the license declaration are left untouched.
 This original package is licensed by GPL-2.0. This version retains compatibility with the
 licensing of the original utility.
 
+Other code parts such as CI scripts are licensed under BSL 1.0.
+
 Continuous integration runs with GCC, clang and MSVC.
 The CI runs exercise both building `xxd` as well as running
 several straightforward `xxd` test cases.
