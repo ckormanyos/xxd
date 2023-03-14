@@ -430,10 +430,15 @@ huntype(
       want_off++;
       n1 = -1;
 
-      if(!hextype && (++p >= cols))
+      if(!hextype)
         /* skip the rest of the line as garbage */
       {
-        c = skip_to_eol(fpi, c);
+        ++p;
+
+        if(p >= cols)
+        {
+          c = skip_to_eol(fpi, c);
+        }
       }
     }
     else if(n1 < 0 && n2 < 0 && n3 < 0)
@@ -479,7 +484,7 @@ huntype(
  * If nz is always positive, lines are never suppressed.
  */
 static void
-xxdline(FILE* fp, char* l, int nz)
+xxdline(FILE* fp, char* l, const int nz)
 {
   static char z[LLEN + 1];
   static int zero_seen = 0;
@@ -555,7 +560,7 @@ int
 main(int argc, char* argv[])
 {
   FILE* fp, *fpo;
-  int c, e, p = 0, relseek = 1, negseek = 0, revert = 0;
+  int c, p = 0, relseek = 1, negseek = 0, revert = 0;
   int cols = 0, colsgiven = 0, nonzero = 0, autoskip = 0, hextype = HEX_NORMAL;
   int capitalize = 0, decimal_offset = 0;
   int ebcdic = 0;
@@ -922,6 +927,8 @@ main(int argc, char* argv[])
                    negseek ? -seekoff : seekoff);
   }
 
+  int e = 0;
+
   if(seekoff || negseek || !relseek)
   {
 #ifdef TRY_SEEK
@@ -931,8 +938,9 @@ main(int argc, char* argv[])
       e = fseek(fp, negseek ? -seekoff : seekoff, SEEK_CUR);
     }
     else
-      e = fseek(fp, negseek ? -seekoff : seekoff,
-                negseek ? SEEK_END : SEEK_SET);
+    {
+      e = fseek(fp, negseek ? -seekoff : seekoff, negseek ? SEEK_END : SEEK_SET);
+    }
 
     if(e < 0 && negseek)
     {
