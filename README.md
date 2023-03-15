@@ -43,7 +43,8 @@ g++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion sr
 
 ### Platform-independent build with CMake (and ninja)
 
-Build on the command line  with platform-independent CMake (and ninja) is also supported.
+Build on the command line  with platform-independent CMake (and ninja) is also supported,
+as motivated by [issue 16](https://github.com/ckormanyos/xxd/issues/16).
 
 ```sh
 cd xxd
@@ -64,6 +65,7 @@ The following adaptions have been undertaken.
   - Handle GCC warnings from `-Wall`, `-Wextra`, `-Wpedantic`, `-Wconversion` and `-Wsign-conversion`.
   - Add CI consisting of MSVC/GCC/clang builds and a handful of straightforward test cases.
   - Upload build artifacts in CI for `xxd-x86_64-linux-gnu` and `xxd-win64-msvc`, see also discussion in [issue 11](https://github.com/ckormanyos/xxd/issues/11).
+  - Handle adaptations for quality checks performed via CodeSonar, as described in [issue 15](https://github.com/ckormanyos/xxd/issues/15) and [issue 23](https://github.com/ckormanyos/xxd/issues/23).
 
 ## Usage
 
