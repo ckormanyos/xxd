@@ -926,6 +926,7 @@ main(int argc, char* argv[])
     {
       fprintf(stderr, "%s: ", pname);
       perror(argv[2]);
+      if(fpo != NULL) { (void) fclose(fpo); }
       return 3;
     }
 
