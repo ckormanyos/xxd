@@ -431,11 +431,11 @@ huntype(
       n1 = -1;
 
       if(!hextype)
-        /* skip the rest of the line as garbage */
       {
         ++p;
 
         if(p >= cols)
+          /* skip the rest of the line as garbage */
         {
           c = skip_to_eol(fpi, c);
         }
@@ -467,7 +467,6 @@ huntype(
 #ifdef TRY_SEEK
   fseek(fpo, 0L, SEEK_END);
 #endif
-  fclose_or_die(fpi, fpo);
   return 0;
 }
 
@@ -556,6 +555,9 @@ static unsigned char etoa64[] =
   0070, 0071, 0372, 0373, 0374, 0375, 0376, 0377
 };
 
+/* static and non-local because it may be too big for stack */
+static char non_local_buf[LLEN + 1];
+
 int
 main(int argc, char* argv[])
 {
@@ -579,8 +581,6 @@ main(int argc, char* argv[])
   long seekoff = 0;
 
   unsigned long displayoff = 0;
-
-  static char l[LLEN + 1]; /* static because it may be too big for stack */
 
   char* pp;
   int addrlen = 9;
@@ -896,7 +896,7 @@ main(int argc, char* argv[])
   }
 
   FILE* fp;
-  FILE* fpo;
+  FILE* fpo = NULL;
 
   if(argc == 1 || (argv[1][0] == '-' && !argv[1][1]))
   {
@@ -918,11 +918,20 @@ main(int argc, char* argv[])
   }
   else
   {
-    int fd;
-    int mode = revert ? O_WRONLY : (O_TRUNC | O_WRONLY);
+    const int mode = revert ? O_WRONLY : (O_TRUNC | O_WRONLY);
 
-    if(((fd = OPEN(argv[2], mode | BIN_CREAT(revert), 0666)) < 0) ||
-        (fpo = fdopen(fd, BIN_WRITE(revert))) == NULL)
+    const int fd = OPEN(argv[2], mode | BIN_CREAT(revert), 0666);
+
+    if(fd < 0)
+    {
+      fprintf(stderr, "%s: ", pname);
+      perror(argv[2]);
+      return 3;
+    }
+
+    fpo = fdopen(fd, BIN_WRITE(revert));
+
+    if(fpo == NULL)
     {
       fprintf(stderr, "%s: ", pname);
       perror(argv[2]);
@@ -939,8 +948,11 @@ main(int argc, char* argv[])
       error_exit(-1, "Sorry, cannot revert this type of hexdump");
     }
 
-    return huntype(fp, fpo, cols, hextype,
-                   negseek ? -seekoff : seekoff);
+    const int result = huntype(fp, fpo, cols, hextype, negseek ? -seekoff : seekoff);
+
+    fclose_or_die(fp, fpo);
+
+    return result;
   }
 
   int e = 0;
@@ -1070,10 +1082,10 @@ main(int argc, char* argv[])
 
     if(p == 0)
     {
-      addrlen = sprintf(l, decimal_offset ? "%08ld:" : "%08lx:",
+      addrlen = sprintf(non_local_buf, decimal_offset ? "%08ld:" : "%08lx:",
                         ((unsigned long)(n + seekoff + (long) displayoff)));
 
-      for(c = addrlen; c < LLEN; l[c++] = ' ');
+      for(c = addrlen; c < LLEN; non_local_buf[c++] = ' ');
     }
 
     x = hextype == HEX_LITTLEENDIAN ? p ^ (octspergrp - 1) : p;
@@ -1081,14 +1093,14 @@ main(int argc, char* argv[])
 
     if(hextype == HEX_NORMAL || hextype == HEX_LITTLEENDIAN)
     {
-      l[c]   = hexx[(e >> 4) & 0xf];
-      l[++c] = hexx[e & 0xf];
+      non_local_buf[c]   = hexx[(e >> 4) & 0xf];
+      non_local_buf[++c] = hexx[e & 0xf];
     }
     else /* hextype == HEX_BITS */
     {
       for(int i = 7; i >= 0; i--)
       {
-        l[c++] = (e & (1 << i)) ? '1' : '0';
+        non_local_buf[c++] = (e & (1 << i)) ? '1' : '0';
       }
     }
 
@@ -1111,14 +1123,14 @@ main(int argc, char* argv[])
       ((e > 31 && e < 127) ? true : false);
       #endif
 
-    l[c++] = (char) (char_is_in_range ? e : '.');
+    non_local_buf[c++] = (char) (char_is_in_range ? e : '.');
     n++;
 
     if(++p == cols)
     {
-      l[c] = '\n';
-      l[++c] = '\0';
-      xxdline(fpo, l, autoskip ? nonzero : 1);
+      non_local_buf[c] = '\n';
+      non_local_buf[++c] = '\0';
+      xxdline(fpo, non_local_buf, autoskip ? nonzero : 1);
       nonzero = 0;
       p = 0;
     }
@@ -1126,13 +1138,13 @@ main(int argc, char* argv[])
 
   if(p)
   {
-    l[c] = '\n';
-    l[++c] = '\0';
-    xxdline(fpo, l, 1);
+    non_local_buf[c] = '\n';
+    non_local_buf[++c] = '\0';
+    xxdline(fpo, non_local_buf, 1);
   }
   else if(autoskip)
   {
-    xxdline(fpo, l, -1);  /* last chance to flush out suppressed lines */
+    xxdline(fpo, non_local_buf, -1);  /* last chance to flush out suppressed lines */
   }
 
   fclose_or_die(fp, fpo);
