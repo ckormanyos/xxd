@@ -56,6 +56,7 @@
  * 04.02.2020  Add -d for decimal offsets by Aapo Rantalainen
  * 14.01.2022  Disable extra newlines with -c0 -p by Erik Auerswald.
  * 28.03.2022  Adapted for MSVC/GCC/clang standalone build by Christopher Kormanyos.
+ * 2023 14-15 March Handle CodeSonar issues by Christopher Kormanyos.
  *
  * (c) 1990-1998 by Juergen Weigert (jnweiger@gmail.com)
  *
@@ -491,7 +492,7 @@ huntype(
  * If nz is always positive, lines are never suppressed.
  */
 static void
-xxdline(FILE* fp, char* l, const int nz)
+xxdline(FILE* fp, const char* l, const int nz)
 {
   static char z[LLEN + 1];
   static int zero_seen = 0;
