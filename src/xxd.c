@@ -918,15 +918,23 @@ main(int argc, char* argv[])
   }
   else
   {
-    int fd;
-    int mode = revert ? O_WRONLY : (O_TRUNC | O_WRONLY);
+    const int mode = revert ? O_WRONLY : (O_TRUNC | O_WRONLY);
 
-    if(((fd = OPEN(argv[2], mode | BIN_CREAT(revert), 0666)) < 0) ||
-        (fpo = fdopen(fd, BIN_WRITE(revert))) == NULL)
+    const int fd = OPEN(argv[2], mode | BIN_CREAT(revert), 0666);
+
+    if(fd < 0)
     {
       fprintf(stderr, "%s: ", pname);
       perror(argv[2]);
-      if(fpo != NULL) { (void) fclose(fpo); }
+      return 3;
+    }
+
+    fpo = fdopen(fd, BIN_WRITE(revert));
+
+    if(fpo == NULL)
+    {
+      fprintf(stderr, "%s: ", pname);
+      perror(argv[2]);
       return 3;
     }
 
