@@ -926,9 +926,6 @@ main(int argc, char* argv[])
     {
       fprintf(stderr, "%s: ", pname);
       perror(argv[2]);
-
-      fclose_or_die(fp, fpo);
-
       return 3;
     }
 
