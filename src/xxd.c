@@ -56,6 +56,7 @@
  * 04.02.2020  Add -d for decimal offsets by Aapo Rantalainen
  * 14.01.2022  Disable extra newlines with -c0 -p by Erik Auerswald.
  * 28.03.2022  Adapted for MSVC/GCC/clang standalone build by Christopher Kormanyos.
+ * 2023 14-15 March Handle CodeSonar issues by Christopher Kormanyos.
  *
  * (c) 1990-1998 by Juergen Weigert (jnweiger@gmail.com)
  *
@@ -283,7 +284,7 @@ putc_or_die(int c, FILE* fpo)
 }
 
 static void
-fputs_or_die(char* s, FILE* fpo)
+fputs_or_die(const char* s, FILE* fpo)
 {
   if(fputs(s, fpo) == EOF)
   {
@@ -352,10 +353,18 @@ huntype(
   int hextype,
   long base_off)
 {
-  int c, ign_garb = 1, n1 = -1, n2 = 0, n3, p = cols;
-  long have_off = 0, want_off = 0;
+  int ign_garb = 1;
+
+  int n1 = -1;
+  int n2 = 0;
+  int p  = cols;
+
+  long have_off = 0;
+  long want_off = 0;
 
   rewind(fpi);
+
+  int c;
 
   while((c = getc(fpi)) != EOF)
   {
@@ -372,7 +381,7 @@ huntype(
       continue;
     }
 
-    n3 = n2;
+    const int n3 = n2;
     n2 = n1;
 
     n1 = parse_hex_digit(c);
@@ -483,7 +492,7 @@ huntype(
  * If nz is always positive, lines are never suppressed.
  */
 static void
-xxdline(FILE* fp, char* l, const int nz)
+xxdline(FILE* fp, const char* l, const int nz)
 {
   static char z[LLEN + 1];
   static int zero_seen = 0;
@@ -1049,10 +1058,15 @@ main(int argc, char* argv[])
       putc_or_die(hexx[e & 0xf], fpo);
       n++;
 
-      if(cols > 0 && !--p)
+      if(cols > 0)
       {
-        putc_or_die('\n', fpo);
-        p = cols;
+        --p;
+
+        if(!p)
+        {
+          putc_or_die('\n', fpo);
+          p = cols;
+        }
       }
     }
 
