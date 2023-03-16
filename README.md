@@ -65,7 +65,7 @@ The following adaptions have been undertaken.
   - Handle GCC warnings from `-Wall`, `-Wextra`, `-Wpedantic`, `-Wconversion` and `-Wsign-conversion`.
   - Add CI consisting of MSVC/GCC/clang builds and a handful of straightforward test cases.
   - Upload build artifacts in CI for `xxd-x86_64-linux-gnu` and `xxd-win64-msvc`, see also discussion in [issue 11](https://github.com/ckormanyos/xxd/issues/11).
-  - Handle adaptations for quality checks performed via CodeSonar, as described in [issue 15](https://github.com/ckormanyos/xxd/issues/15) and [issue 23](https://github.com/ckormanyos/xxd/issues/23).
+  - Resolve code-technical issues (and/or disable some) found via quality checks performed with CodeSonar, as described in [issue 15](https://github.com/ckormanyos/xxd/issues/15) and [issue 23](https://github.com/ckormanyos/xxd/issues/23).
 
 ## Usage
 
@@ -181,8 +181,9 @@ The license as well as the license declaration are left untouched.
 This original package is licensed by GPL-2.0. This version retains compatibility with the
 licensing of the original utility.
 
-Other code parts such as CI scripts are licensed under BSL 1.0.
+Other code parts (such as continuous integration scripts) are licensed under BSL 1.0.
 
-Continuous integration runs with GCC, clang and MSVC.
-The CI runs exercise both building `xxd` as well as running
+Continuous integration (CI) runs with GCC, clang and MSVC with both
+tool-specific builds as well as platform-independent CMake builds.
+CI exercises both building `xxd` as well as running
 several straightforward `xxd` test cases.
