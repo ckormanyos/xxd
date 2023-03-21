@@ -4,8 +4,16 @@
 <p align="center">
     <a href="https://github.com/ckormanyos/xxd/actions">
         <img src="https://github.com/ckormanyos/xxd/actions/workflows/xxd.yml/badge.svg" alt="Build Status"></a>
+    <a href="https://github.com/ckormanyos/xxd/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">
+        <img src="https://custom-icon-badges.herokuapp.com/github/issues-raw/ckormanyos/xxd?logo=github" alt="Issues" /></a>
     <a href="https://sonarcloud.io/summary/new_code?id=ckormanyos_xxd">
         <img src="https://sonarcloud.io/api/project_badges/measure?project=ckormanyos_xxd&metric=alert_status" alt="Quality Gate Status"></a>
+    <a href="https://github.com/ckormanyos/xxd/blob/master/LICENSE">
+        <img src="https://img.shields.io/badge/license-GPL%202.0-blue.svg" alt="GNU GENERAL PUBLIC LICENSE 2.0"></a>
+    <a href="https://img.shields.io/github/commit-activity/y/ckormanyos/xxd">
+        <img src="https://img.shields.io/github/commit-activity/y/ckormanyos/xxd" alt="GitHub commit activity" /></a>
+    <a href="https://github.com/ckormanyos/xxd">
+        <img src="https://img.shields.io/github/languages/code-size/ckormanyos/xxd" alt="GitHub code size in bytes" /></a>
     <a href="https://godbolt.org/z/obfPGT7sG" alt="godbolt">
         <img src="https://img.shields.io/badge/try%20it%20on-godbolt-green" /></a>
 </p>
