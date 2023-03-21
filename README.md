@@ -1,8 +1,14 @@
 ﻿ckormanyos/xxd
 ==================
 
-[![Build Status](https://github.com/ckormanyos/xxd/actions/workflows/xxd.yml/badge.svg)](https://github.com/ckormanyos/xxd/actions)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ckormanyos_xxd&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ckormanyos_xxd)
+<p align="center">
+    <a href="https://github.com/ckormanyos/xxd/actions">
+        <img src="https://github.com/ckormanyos/xxd/actions/workflows/xxd.yml/badge.svg" alt="Build Status"></a>
+    <a href="https://sonarcloud.io/summary/new_code?id=ckormanyos_xxd">
+        <img src="https://sonarcloud.io/api/project_badges/measure?project=ckormanyos_xxd&metric=alert_status" alt="Quality Gate Status"></a>
+    <a href="https://godbolt.org/z/obfPGT7sG" alt="godbolt">
+        <img src="https://img.shields.io/badge/try%20it%20on-godbolt-green" /></a>
+</p>
 
 This is the well-known hex-dump-type utility `xxd` commonly distributed
 as a part of the [vim-project](https://www.vim.org).
