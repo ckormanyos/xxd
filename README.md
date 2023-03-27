@@ -14,7 +14,7 @@
         <img src="https://img.shields.io/github/commit-activity/y/ckormanyos/xxd" alt="GitHub commit activity" /></a>
     <a href="https://github.com/ckormanyos/xxd">
         <img src="https://img.shields.io/github/languages/code-size/ckormanyos/xxd" alt="GitHub code size in bytes" /></a>
-    <a href="https://godbolt.org/z/obfPGT7sG" alt="godbolt">
+    <a href="https://godbolt.org/z/n9fxM6Yd9" alt="godbolt">
         <img src="https://img.shields.io/badge/try%20it%20on-godbolt-green" /></a>
 </p>
 
@@ -29,8 +29,10 @@ convenient use without the need to build `ckormanyos/xxd`
 
 ## Build
 
-This version of the source code has been adapted for build on both `Win*`
-as well as `*nix`.
+This version of the source code has been adapted for standalone build
+on both `Win*` as well as `*nix`.
+The source code is written in the C language and it
+is compatible with the language standards C99, 11, 2x and beyond.
 
 ### Build on `Win*` with MSVC
 
@@ -52,7 +54,7 @@ In other words,
 
 ```sh
 cd xxd
-g++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
+g++ -x c -std=c11 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
 ```
 
 ### Platform-independent build with CMake (and ninja)
