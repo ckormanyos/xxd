@@ -86,8 +86,8 @@ jobs:
           echo "query clang version"
           clang++ -v
           echo "build xxd"
-          echo 'clang++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
-          clang++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
+          echo 'clang++ -x c -std=c11 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
+          clang++ -x c -std=c11 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
           echo 'ls -la ./xxd'
           ls -la ./xxd
       - uses: actions/upload-artifact@v3
