@@ -23,28 +23,32 @@ as a part of the [vim-project](https://www.vim.org).
 The version of `xxd` in this repository has been adapted
 for MSVC/GCC/clang standalone build.
 
-Build artifacts (i.e., the executable xxd program) are created in CI for both
-`Win*` as well as `*nix`. These can be readily found and downloaded for
-convenient use without the need to build `ckormanyos/xxd`
+Building `ckormanyos/xxd` is straightforward.
+
+In addition, build artifacts (i.e., the executable xxd program) are created
+in CI for Windows, LINUX and MacOS . These can be readily found
+in each CI run area and downloaded for convenient use.
+When using the CI build artifacts, there is no need to build `ckormanyos/xxd`
 
 ## Build
 
-This version of the source code has been adapted for standalone build
-on both `Win*` as well as `*nix`.
-The source code is written in the C language and it
-is compatible with the language standards C99, 11, 2x and beyond.
+The source code in `ckormanyos/xxd` has been adapted
+for standalone build on most common operating systems.
 
-### Build on `Win*` with MSVC
+The source code of `ckormanyos/xxd` is written in the C language.
+It is compatible with language standards C99, 11, 2x and beyond.
 
-On `Win*` with MSVC simply:
+### Build on Windows with MSVC
+
+On Windows with MSVC simply build `ckormanyos/xxd` with the following.
 
   - Open the `xxd.sln` workspace.
   - Rebuild `Release` (i.e., for the `x64` project configuration).
   - After building, find the executable `xxd.exe` in the expected output directory.
 
-### Build on `*nix` on the command line
+### Build on the LINUX command line
 
-On `*nix` it is straightforward to build on the command line.
+On LINUX it is straightforward to build `ckormanyos/xxd` on the command line.
 
   - Switch to the `xxd`directory.
   - Build (for instance with GCC) using an easy command, as shown below.
@@ -57,10 +61,26 @@ cd xxd
 g++ -x c -std=c11 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
 ```
 
+### Build on the MacOS command line
+
+When on MacOS, it is also easy to build `ckormanyos/xxd` on the command line.
+
+  - Switch to the `xxd`directory.
+  - Build (for instance with clang) using an easy command, as shown below.
+  - This compiles `src/xxd.c` to `xxd`.
+
+In other words,
+
+```sh
+cd xxd
+clang++ -x c -std=c11 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
+```
+
 ### Platform-independent build with CMake (and ninja)
 
-Build on the command line  with platform-independent CMake (and ninja) is also supported,
-as motivated by [issue 16](https://github.com/ckormanyos/xxd/issues/16).
+Building `ckormanyos/xxd` on the command line is also supported
+with platform-independent CMake (and ninja).
+This has been motivated by [issue 16](https://github.com/ckormanyos/xxd/issues/16).
 
 ```sh
 cd xxd
