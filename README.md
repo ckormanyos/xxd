@@ -32,7 +32,7 @@ When using the CI build artifacts, there is no need to build `ckormanyos/xxd`
 
 ## Build
 
-Th source code in `ckormanyos/xxd` has been adapted
+The source code in `ckormanyos/xxd` has been adapted
 for standalone build on most common operating systems.
 
 The source code of `ckormanyos/xxd` is written in the C language.
@@ -63,7 +63,7 @@ g++ -x c -std=c11 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion sr
 
 ### Build on the MacOS command line
 
-When on MacOS it is also easy to build `ckormanyos/xxd` on the command line.
+When on MacOS, it is also easy to build `ckormanyos/xxd` on the command line.
 
   - Switch to the `xxd`directory.
   - Build (for instance with clang) using an easy command, as shown below.
