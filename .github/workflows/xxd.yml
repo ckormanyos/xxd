@@ -34,7 +34,7 @@ jobs:
           g++ -v
           echo "build xxd"
           echo '${{ matrix.compiler }}++ -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
-          ${{ matrix.compiler }} -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -Wconversion -Wsign-conversion src/xxd.c -o xxd
+          ${{ matrix.compiler }} -x c -std=${{ matrix.standard }} -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
           echo 'ls -la ./xxd'
           ls -la ./xxd
           echo 'create zero_a.bin'
@@ -68,12 +68,31 @@ jobs:
           g++ -v
           echo "build xxd"
           echo 'g++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
-          g++ -x c -std=c11 -O3 -Wall -Wextra -Wconversion -Wsign-conversion src/xxd.c -o xxd
+          g++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
           echo 'ls -la ./xxd'
           ls -la ./xxd
       - uses: actions/upload-artifact@v3
         with:
           name: xxd-x86_64-linux-gnu
+          path: ./xxd
+  clang-macos-native-with-artifact:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: clang-macos-native-with-artifact
+        run: |
+          echo "query clang version"
+          clang++ -v
+          echo "build xxd"
+          echo 'clang++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe'
+          clang++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
+          echo 'ls -la ./xxd'
+          ls -la ./xxd
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xxd-macos
           path: ./xxd
   msvc-release-x64:
     runs-on: windows-2022
