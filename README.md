@@ -14,7 +14,7 @@
         <img src="https://img.shields.io/github/commit-activity/y/ckormanyos/xxd" alt="GitHub commit activity" /></a>
     <a href="https://github.com/ckormanyos/xxd">
         <img src="https://img.shields.io/github/languages/code-size/ckormanyos/xxd" alt="GitHub code size in bytes" /></a>
-    <a href="https://godbolt.org/z/n9fxM6Yd9" alt="godbolt">
+    <a href="https://godbolt.org/z/x8MGxf6fz" alt="godbolt">
         <img src="https://img.shields.io/badge/try%20it%20on-godbolt-green" /></a>
 </p>
 
@@ -36,7 +36,7 @@ The source code in `ckormanyos/xxd` has been adapted
 for standalone build on most common operating systems.
 
 The source code of `ckormanyos/xxd` is written in the C language.
-It is compatible with language standards C99, 11, 2x and beyond.
+It is compatible with language standards C99, 11, 17, 23 and beyond.
 
 ### Build on Windows with MSVC
 
@@ -58,7 +58,7 @@ In other words,
 
 ```sh
 cd xxd
-g++ -x c -std=c11 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
+g++ -x c -std=c17 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
 ```
 
 ### Build on the MacOS command line
@@ -73,7 +73,7 @@ In other words,
 
 ```sh
 cd xxd
-clang++ -x c -std=c11 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
+clang++ -x c -std=c17 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
 ```
 
 ### Platform-independent build with CMake (and ninja)

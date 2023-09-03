@@ -56,7 +56,8 @@
  * 04.02.2020  Add -d for decimal offsets by Aapo Rantalainen
  * 14.01.2022  Disable extra newlines with -c0 -p by Erik Auerswald.
  * 28.03.2022  Adapted for MSVC/GCC/clang standalone build by Christopher Kormanyos.
- * 2023 14-15 March Handle CodeSonar issues by Christopher Kormanyos.
+ *             Also run through Artistic Style with (among others) allman style.
+ * 15.03.2023  Handle CodeSonar issues by Christopher Kormanyos.
  *
  * (c) 1990-1998 by Juergen Weigert (jnweiger@gmail.com)
  *
@@ -65,9 +66,6 @@
  *
  * Contributions by Bram Moolenaar et al.
  */
-
-// cd /mnt/c/Users/User/Documents/Ks/PC_Software/xxd
-// g++ -x c -std=c11 -O3 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd.exe
 
 /* Visual Studio 2005 has 'deprecated' many of the standard CRT functions */
 #if defined(_MSC_VER) && (_MSC_VER >= 1400)
