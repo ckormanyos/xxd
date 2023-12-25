@@ -71,7 +71,7 @@ jobs:
           g++ -x c -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
           echo 'ls -la ./xxd'
           ls -la ./xxd
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: xxd-x86_64-linux-gnu
           path: ./xxd
