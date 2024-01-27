@@ -23,14 +23,18 @@ as a part of the [vim-project](https://www.vim.org).
 The version of `xxd` in this repository has been adapted
 for MSVC/GCC/clang standalone build.
 
-Building `ckormanyos/xxd` is straightforward.
+## Releases and build artifacts
 
-In addition, build artifacts (i.e., the executable xxd program) are created
-in CI for Windows, LINUX and MacOS . These can be readily found
-in each CI run area and downloaded for convenient use.
-When using the CI build artifacts, there is no need to build `ckormanyos/xxd`
+Occasional releases and build artifacts (i.e., the executable xxd program)
+are created in CI for Windows, LINUX and MacOS . These can be readily found
+on the repo front page and in each CI run area and downloaded for convenient use.
+
+Using released or CI-built artifacts can be convenient for clients
+who do not actually want to nor need to manually build `ckormanyos/xxd`
 
 ## Build
+
+Building `ckormanyos/xxd` (if needed) is straightforward.
 
 The source code in `ckormanyos/xxd` has been adapted
 for standalone build on most common operating systems.
