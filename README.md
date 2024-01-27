@@ -25,12 +25,13 @@ for MSVC/GCC/clang standalone build.
 
 ## Releases and build artifacts
 
-Occasional releases and build artifacts (i.e., the executable xxd program)
-are created in CI for Windows, LINUX and MacOS . These can be readily found
-on the repo front page and in each CI run area and downloaded for convenient use.
+Occasional releases and build artifacts consisting of the executable xxd program
+are created for Windows, LINUX and MacOS . These can be readily found
+on the repo front page and in CI workflow-run downloaded areas
+for immediate client-use.
 
-Using released or CI-built artifacts can be convenient for clients
-who do not actually want to nor need to manually build `ckormanyos/xxd`
+Using released or CI-built artifacts can be convenient when you
+do not actually want to nor need to manually build `ckormanyos/xxd`
 
 ## Build
 
