@@ -107,6 +107,7 @@ The following adaptions have been undertaken.
   - Add CI consisting of MSVC/GCC/clang builds and a handful of straightforward test cases.
   - Upload build artifacts in CI for `xxd-x86_64-linux-gnu` and `xxd-win64-msvc`, see also discussion in [issue 11](https://github.com/ckormanyos/xxd/issues/11).
   - Resolve code-technical issues (and/or disable some) found via quality checks performed with CodeSonar, as described in [issue 15](https://github.com/ckormanyos/xxd/issues/15) and [issue 23](https://github.com/ckormanyos/xxd/issues/23).
+  - Implementation of the `-n` flag, as seen in vim's [xxd](vim/vim@83e1180). See also [PR 45](https://github.com/ckormanyos/xxd/pull/45).
 
 ## Usage
 
