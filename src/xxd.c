@@ -227,6 +227,7 @@ exit_with_usage(void)
   fprintf(stderr, "    -g bytes    number of octets per group in normal output. Default 2 (-e: 4).\n");
   fprintf(stderr, "    -h          print this summary.\n");
   fprintf(stderr, "    -i          output in C include file style.\n");
+  fprintf(stderr, "    -n name     set the variable name used in C include output (-i).\n");
   fprintf(stderr, "    -l len      stop after <len> octets.\n");
   fprintf(stderr, "    -o off      add <off> to the displayed file position.\n");
   fprintf(stderr, "    -ps         output in postscript plain hexdump style.\n");
@@ -590,6 +591,7 @@ main(int argc, char* argv[])
   unsigned long displayoff = 0;
 
   char* pp;
+  char* varname = NULL;
   int addrlen = 9;
 
 #ifdef AMIGA
@@ -708,6 +710,20 @@ main(int argc, char* argv[])
         }
 
         octspergrp = (int)strtol(argv[2], NULL, 0);
+        argv++;
+        argc--;
+      }
+    }
+    else if (!STRNCMP(pp, "-n", 2))
+    {
+      if (pp[2] && STRNCMP("ame", pp + 2, 3))
+        varname = pp + 2;
+      else
+      {
+        if (!argv[2])
+          exit_with_usage();
+
+        varname = argv[2];
         argv++;
         argc--;
       }
@@ -1003,11 +1019,13 @@ main(int argc, char* argv[])
 
   if(hextype == HEX_CINCLUDE)
   {
-    if(fp != stdin)
+    if(varname == NULL && fp != stdin)
+      varname = argv[1];
+    if(varname != NULL)
     {
-      FPRINTF_OR_DIE((fpo, "unsigned char %s", isdigit((int)argv[1][0]) ? "__" : ""));
+      FPRINTF_OR_DIE((fpo, "unsigned char %s", isdigit((int)varname[0]) ? "__" : ""));
 
-      for(e = 0; (c = argv[1][e]) != 0; e++)
+      for(e = 0; (c = varname[e]) != 0; e++)
       {
         putc_or_die(isalnum(c) ? CONDITIONAL_CAPITALIZE(c) : '_', fpo);
       }
@@ -1029,12 +1047,12 @@ main(int argc, char* argv[])
       fputs_or_die("\n", fpo);
     }
 
-    if(fp != stdin)
+    if(varname != NULL)
     {
       fputs_or_die("};\n", fpo);
-      FPRINTF_OR_DIE((fpo, "unsigned int %s", isdigit((int)argv[1][0]) ? "__" : ""));
+      FPRINTF_OR_DIE((fpo, "unsigned int %s", isdigit((int)varname[0]) ? "__" : ""));
 
-      for(e = 0; (c = argv[1][e]) != 0; e++)
+      for(e = 0; (c = varname[e]) != 0; e++)
       {
         putc_or_die(isalnum(c) ? CONDITIONAL_CAPITALIZE(c) : '_', fpo);
       }
