@@ -23,7 +23,7 @@ jobs:
         compiler: [ g++, clang++ ]
         standard: [ c99, c11, c2x ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: '0'
       - name: install dos2unix
@@ -59,7 +59,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: '0'
       - name: gcc-clang-native-with-artifact
@@ -78,7 +78,7 @@ jobs:
   clang-macos-native-with-artifact:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: '0'
       - name: clang-macos-native-with-artifact
@@ -97,7 +97,7 @@ jobs:
   msvc-release-x64:
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: '0'
       - uses: actions/checkout@v1
@@ -133,7 +133,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: '0'
       - name: install tools
@@ -168,10 +168,10 @@ jobs:
   windows-latest-cmake-ninja:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: '0'
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           toolset: 14.3
