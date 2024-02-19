@@ -10,10 +10,6 @@
         <img src="https://sonarcloud.io/api/project_badges/measure?project=ckormanyos_xxd&metric=alert_status" alt="Quality Gate Status"></a>
     <a href="https://github.com/ckormanyos/xxd/blob/master/LICENSE">
         <img src="https://img.shields.io/badge/license-GPL%202.0-blue.svg" alt="GNU GENERAL PUBLIC LICENSE 2.0"></a>
-    <a href="https://img.shields.io/github/commit-activity/y/ckormanyos/xxd">
-        <img src="https://img.shields.io/github/commit-activity/y/ckormanyos/xxd" alt="GitHub commit activity" /></a>
-    <a href="https://github.com/ckormanyos/xxd">
-        <img src="https://img.shields.io/github/languages/code-size/ckormanyos/xxd" alt="GitHub code size in bytes" /></a>
     <a href="https://godbolt.org/z/x8MGxf6fz" alt="godbolt">
         <img src="https://img.shields.io/badge/try%20it%20on-godbolt-green" /></a>
 </p>
