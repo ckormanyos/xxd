@@ -104,7 +104,7 @@ The following adaptions have been undertaken.
   - Upload build artifacts in CI for `xxd-x86_64-linux-gnu` and `xxd-win64-msvc`, see also discussion in [issue 11](https://github.com/ckormanyos/xxd/issues/11).
   - Resolve code-technical issues (and/or disable some) found via quality checks performed with CodeSonar, as described in [issue 15](https://github.com/ckormanyos/xxd/issues/15) and [issue 23](https://github.com/ckormanyos/xxd/issues/23).
   - Implementation of the `-n` flag, as seen in [vim/vim@83e1180](https://github.com/vim/vim/commit/83e11800cc3775de3135ac7d823137c8c1e87fa1) and added in [PR 45](https://github.com/ckormanyos/xxd/pull/45).
-  - Use `fgetc()`/`fputc()` instead of `getc()`/`putc()`. See also [PR 50](https://github.com/ckormanyos/xxd/pull/50) which fixes a bug where sometimes line feeds 0x0A `\n` get an additional (unexpected) carriage return 0x0D `\r` (sometimes two) with them on Windows when reading/writing files.
+  - Use `fgetc()`/`fputc()` instead of `getc()`/`putc()`. See also [PR 50](https://github.com/ckormanyos/xxd/pull/50) which fixes a bug where sometimes line feeds `0x0A` (i.e., `\n`) get an additional (unexpected) carriage return `0x0D` (i.e., `\r`) - or sometimes even two - with them on `Win*` when reading/writing files.
 
 ## Usage
 
