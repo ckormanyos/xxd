@@ -261,9 +261,9 @@ error_exit(int ret, char* msg)
 }
 
 static int
-getc_or_die(FILE* fpi)
+fgetc_or_die(FILE* fpi)
 {
-  int c = getc(fpi);
+  int c = fgetc(fpi);
 
   if(c == EOF && ferror(fpi))
   {
@@ -274,9 +274,9 @@ getc_or_die(FILE* fpi)
 }
 
 static void
-putc_or_die(int c, FILE* fpo)
+fputc_or_die(int c, FILE* fpo)
 {
-  if(putc(c, fpo) == EOF)
+  if(fputc(c, fpo) == EOF)
   {
     perror_exit(3);
   }
@@ -331,7 +331,7 @@ skip_to_eol(FILE* fpi, int c)
 {
   while(c != '\n' && c != EOF)
   {
-    c = getc_or_die(fpi);
+    c = fgetc_or_die(fpi);
   }
 
   return c;
@@ -365,7 +365,7 @@ huntype(
 
   int c;
 
-  while((c = getc(fpi)) != EOF)
+  while((c = fgetc(fpi)) != EOF)
   {
     if(c == '\r')  /* Doze style input file? */
     {
@@ -427,13 +427,13 @@ huntype(
 
       for(; have_off < base_off + want_off; have_off++)
       {
-        putc_or_die(0, fpo);
+        fputc_or_die(0, fpo);
       }
     }
 
     if(n2 >= 0 && n1 >= 0)
     {
-      putc_or_die((n2 << 4) | n1, fpo);
+      fputc_or_die((n2 << 4) | n1, fpo);
       have_off++;
       want_off++;
       n1 = -1;
@@ -1008,7 +1008,7 @@ main(int argc, char* argv[])
       long s = seekoff;
 
       while(s--)
-        if(getc_or_die(fp) == EOF)
+        if(fgetc_or_die(fp) == EOF)
         {
           error_exit(4, "Sorry, cannot seek.");
         }
@@ -1027,7 +1027,7 @@ main(int argc, char* argv[])
 
       for(e = 0; (c = varname[e]) != 0; e++)
       {
-        putc_or_die(isalnum(c) ? CONDITIONAL_CAPITALIZE(c) : '_', fpo);
+        fputc_or_die(isalnum(c) ? CONDITIONAL_CAPITALIZE(c) : '_', fpo);
       }
 
       fputs_or_die("[] = {\n", fpo);
@@ -1035,7 +1035,7 @@ main(int argc, char* argv[])
 
     p = 0;
 
-    while((length < 0 || p < length) && (c = getc_or_die(fp)) != EOF)
+    while((length < 0 || p < length) && (c = fgetc_or_die(fp)) != EOF)
     {
       FPRINTF_OR_DIE((fpo, (hexx == hexxa) ? "%s0x%02x" : "%s0X%02X",
                       (p % cols) ? ", " : (!p ? "  " : ",\n  "), c));
@@ -1054,7 +1054,7 @@ main(int argc, char* argv[])
 
       for(e = 0; (c = varname[e]) != 0; e++)
       {
-        putc_or_die(isalnum(c) ? CONDITIONAL_CAPITALIZE(c) : '_', fpo);
+        fputc_or_die(isalnum(c) ? CONDITIONAL_CAPITALIZE(c) : '_', fpo);
       }
 
       FPRINTF_OR_DIE((fpo, "_%s = %d;\n", capitalize ? "LEN" : "len", p));
@@ -1068,10 +1068,10 @@ main(int argc, char* argv[])
   {
     p = cols;
 
-    while((length < 0 || n < length) && (e = getc_or_die(fp)) != EOF)
+    while((length < 0 || n < length) && (e = fgetc_or_die(fp)) != EOF)
     {
-      putc_or_die(hexx[(e >> 4) & 0xf], fpo);
-      putc_or_die(hexx[e & 0xf], fpo);
+      fputc_or_die(hexx[(e >> 4) & 0xf], fpo);
+      fputc_or_die(hexx[e & 0xf], fpo);
       n++;
 
       if(cols > 0)
@@ -1080,7 +1080,7 @@ main(int argc, char* argv[])
 
         if(!p)
         {
-          putc_or_die('\n', fpo);
+          fputc_or_die('\n', fpo);
           p = cols;
         }
       }
@@ -1088,7 +1088,7 @@ main(int argc, char* argv[])
 
     if(cols == 0 || p < cols)
     {
-      putc_or_die('\n', fpo);
+      fputc_or_die('\n', fpo);
     }
 
     fclose_or_die(fp, fpo);
@@ -1106,7 +1106,7 @@ main(int argc, char* argv[])
     grplen = 8 * octspergrp + 1;
   }
 
-  while((length < 0 || n < length) && (e = getc_or_die(fp)) != EOF)
+  while((length < 0 || n < length) && (e = fgetc_or_die(fp)) != EOF)
   {
     int x;
 
