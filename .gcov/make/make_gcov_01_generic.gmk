@@ -77,22 +77,24 @@ gcov: execute_tests
 
 .PHONY: execute_tests
 execute_tests : $(PATH_BIN)/xxd
-	echo 'create zero_a.bin'
-	echo "010000: 41" | xxd -r > zero_a.bin
-	echo 'sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63'
-	sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63
-	echo 'test with doc/xxd.1'
-	$(XXD) -l 120 -c 12 ../../doc/xxd.1 | grep 'Tony Nugent'
-	$(XXD) -l 120 -c 12 ../../doc/xxd.1 > xxd.1.txt
-	echo 'unix2dos xxd.1.txt'
-	unix2dos xxd.1.txt
-	echo 'sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7'
-	sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
-	echo 'test2 with doc/xxd.1'
-	$(XXD) -s 0x36 -l 13 -c 13 ../../doc/xxd.1 | grep '21st May 1996'
-	echo 'create a 3-byte abc-file'
-	echo "0:61 1:62 2:63" | xxd -r > abc.bin
-	sha1sum abc.bin | grep a9993e364706816aba3e25717850c26c9cd0d89d
+	@-$(GNUECHO) 'test with -help'
+	@-$(XXD) -help | grep Usage
+	@-$(GNUECHO) 'create zero_a.bin'
+	@-$(GNUECHO) "010000: 41" | xxd -r > zero_a.bin
+	@-$(GNUECHO) 'sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63'
+	@-sha1sum zero_a.bin | grep e534caeb1e149b6bc61ea48cf59861c7e15caa63
+	@-$(GNUECHO) 'test with doc/xxd.1'
+	@-$(XXD) -l 120 -c 12 ../../doc/xxd.1 | grep 'Tony Nugent'
+	@-$(XXD) -l 120 -c 12 ../../doc/xxd.1 > xxd.1.txt
+	@-$(GNUECHO) 'unix2dos xxd.1.txt'
+	@-unix2dos xxd.1.txt
+	@-$(GNUECHO) 'sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7'
+	@-sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
+	@-$(GNUECHO) 'test2 with doc/xxd.1'
+	@-$(XXD) -s 0x36 -l 13 -c 13 ../../doc/xxd.1 | grep '21st May 1996'
+	@-$(GNUECHO) 'create a 3-byte abc-file'
+	@-$(GNUECHO) "0:61 1:62 2:63" | xxd -r > abc.bin
+	@-sha1sum abc.bin | grep a9993e364706816aba3e25717850c26c9cd0d89d
 
 # ------------------------------------------------------------------------------
 # Clean temporary files.
