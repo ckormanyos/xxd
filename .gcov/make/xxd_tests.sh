@@ -47,8 +47,8 @@ bin/xxd -n 5 testfile.txt | grep 'Hello'
 res_06=$?
 echo
 
-echo -n 'Hello, World!' > testfile.txt
-bin/xxd -g 3 testfile.txt | grep '48656c 6c6f20 576f72 6c6421'
+echo -n '0123456789' > testfile.txt
+bin/xxd -g 5 testfile.txt | grep '3031323334 3536373839'
 res_07=$?
 echo
 
@@ -66,12 +66,26 @@ bin/xxd -o -2 testfile.txt | grep 'fffe'
 res_10=$?
 echo
 
-bin/xxd -v | grep 'ckormanyos'
+bin/xxd -v 2> version.txt
+grep 'ckormanyos' version.txt
 res_11=$?
 echo
 
 result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11))
 
 echo "result_total : "  "$result_total"
+echo "res_00       : "  "$res_00"
+echo "res_01       : "  "$res_01"
+echo "res_02       : "  "$res_02"
+echo "res_03       : "  "$res_03"
+echo "res_04       : "  "$res_04"
+echo "res_05       : "  "$res_05"
+echo "res_06       : "  "$res_06"
+echo "res_07       : "  "$res_07"
+echo "res_08       : "  "$res_08"
+echo "res_09       : "  "$res_09"
+echo "res_10       : "  "$res_10"
+echo "res_11       : "  "$res_11"
+echo
 
 exit $result_total
