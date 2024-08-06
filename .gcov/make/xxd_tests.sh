@@ -47,7 +47,16 @@ bin/xxd testbin.bin | grep '00000000: 0102 0304 05'
 res_06=$?
 echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06))
+echo -n 'Hello World!' > testfile.txt
+bin/xxd -o 10 testfile.txt | grep '          H'
+res_07=$?
+echo
+
+bin/xxd -o -2 testfile.txt | grep 'fffe'
+res_08=$?
+echo
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08))
 
 echo "result_total : "  "$result_total"
 
