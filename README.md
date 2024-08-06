@@ -8,6 +8,8 @@
         <img src="https://custom-icon-badges.herokuapp.com/github/issues-raw/ckormanyos/xxd?logo=github" alt="Issues" /></a>
     <a href="https://sonarcloud.io/summary/new_code?id=ckormanyos_xxd">
         <img src="https://sonarcloud.io/api/project_badges/measure?project=ckormanyos_xxd&metric=alert_status" alt="Quality Gate Status"></a>
+    <a href="https://codecov.io/gh/ckormanyos/xxd" > 
+        <img src="https://codecov.io/gh/ckormanyos/xxd/graph/badge.svg?token=EHGEJLSMSL"/></a>
     <a href="https://github.com/ckormanyos/xxd/blob/master/LICENSE">
         <img src="https://img.shields.io/badge/license-GPL%202.0-blue.svg" alt="GNU GENERAL PUBLIC LICENSE 2.0"></a>
     <a href="https://godbolt.org/z/x8MGxf6fz" alt="godbolt">
