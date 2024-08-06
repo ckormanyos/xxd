@@ -58,6 +58,10 @@
  * 28.03.2022  Adapted for MSVC/GCC/clang standalone build by Christopher Kormanyos.
  *             Also run through Artistic Style with (among others) allman style.
  * 15.03.2023  Handle CodeSonar issues by Christopher Kormanyos.
+ * 06.08.2024  Add comments for running unit tests by Christopher Kormanyos.
+ *   cd /mnt/c/Users/ckorm/Documents/Ks/PC_Software/xxd/.gcov/make
+ *   make prepare -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=g++
+ *   make gcov -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=g++
  *
  * (c) 1990-1998 by Juergen Weigert (jnweiger@gmail.com)
  *

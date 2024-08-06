@@ -10,12 +10,22 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2AF40DF4-2A76-4C93-A2F6-731BF16CD7C4}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\xxd.yml = .github\workflows\xxd.yml
+		.github\workflows\xxd_codecov.yml = .github\workflows\xxd_codecov.yml
 		.github\workflows\xxd_sonar.yml = .github\workflows\xxd_sonar.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_doc", "_doc", "{6ABAF5A8-FEB9-467B-8DBC-88F8BC8CFDEC}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".gcov", ".gcov", "{B53DF1C7-85F1-4848-BFD3-B64D9021DFD4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "make", "make", "{AB992ADD-F8EA-4E31-AEFB-30BA76BC3AAA}"
+	ProjectSection(SolutionItems) = preProject
+		.gcov\make\make_gcov_01_generic.gmk = .gcov\make\make_gcov_01_generic.gmk
+		.gcov\make\make_gcov_02_files.gmk = .gcov\make\make_gcov_02_files.gmk
+		.gcov\make\make_gcov_03_flags.gmk = .gcov\make\make_gcov_03_flags.gmk
 	EndProjectSection
 EndProject
 Global
@@ -34,6 +44,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2AF40DF4-2A76-4C93-A2F6-731BF16CD7C4} = {EA0CC36C-B037-4712-8B1D-30983B6467AF}
+		{AB992ADD-F8EA-4E31-AEFB-30BA76BC3AAA} = {B53DF1C7-85F1-4848-BFD3-B64D9021DFD4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63BD603A-C254-45E6-9F54-0989D775491A}
