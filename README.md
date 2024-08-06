@@ -227,4 +227,6 @@ Other code parts (such as continuous integration scripts) are licensed under BSL
 Continuous integration (CI) runs with GCC, clang and MSVC with both
 tool-specific builds as well as platform-independent CMake builds.
 CI exercises both building `xxd` as well as running
-several straightforward `xxd` test cases.
+several straightforward `xxd` test cases. A test suite is
+present in [`xxd_test.sh`](./.gcov/make/xxd_test.sh).
+It is used in CI to obtain code coverage information.
