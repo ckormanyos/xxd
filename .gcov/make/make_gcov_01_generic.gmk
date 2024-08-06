@@ -99,6 +99,10 @@ execute_tests : $(PATH_BIN)/xxd
 	@-$(SHA1SUM) abc.bin | grep a9993e364706816aba3e25717850c26c9cd0d89d
 	@-$(GNUECHO) -n 'Hello, World!' > testfile.txt
 	@-$(XXD) -p testfile.txt | grep 48656c6c6f2c20576f726c64210a
+	@-$(GNUECHO) -n -e '\x01\x02\x03\x04\x05' > testbin.bin
+	@-$(XXD) -p testbin.bin | grep 00000000: 0102 0304 05
+
+
 
 
 # ------------------------------------------------------------------------------
