@@ -208,6 +208,19 @@ Read single characters from a serial line
 
 ## Additional Details
 
+### Continuous Integration and Testing
+
+Continuous integration (CI) runs with GCC, clang and MSVC with both
+tool-specific builds as well as platform-independent CMake builds.
+CI exercises both building `xxd` as well as running
+several straightforward `xxd` test cases.
+
+A (growing) test suite is present in
+[`xxd_tests.sh`](./.gcov/make/xxd_tests.sh).
+These tests are used in CI to obtain code coverage information.
+
+### Origins and Licensing
+
 When searching for the `xxd` utility one finds it distributed as a part of vim-project and its packages.
 This project extracts the code, creates an MSVC solution workspace and provides
 the ability to easily build `xxd` on `Win*` or `*nix`.
@@ -223,10 +236,3 @@ This original package is licensed by GPL-2.0. This version retains compatibility
 licensing of the original utility.
 
 Other code parts (such as continuous integration scripts) are licensed under BSL 1.0.
-
-Continuous integration (CI) runs with GCC, clang and MSVC with both
-tool-specific builds as well as platform-independent CMake builds.
-CI exercises both building `xxd` as well as running
-several straightforward `xxd` test cases. A test suite is
-present in [`xxd_test.sh`](./.gcov/make/xxd_test.sh).
-It is used in CI to obtain code coverage information.

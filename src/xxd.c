@@ -141,7 +141,7 @@ extern void perror __P((char*));
 # endif
 #endif
 
-char version[] = "xxd 2022-01-14 by Juergen Weigert et al.  (2022-03-28 Build for VC Christopher Kormanyos)";
+char version[] = "xxd 2022-01-14 by Juergen Weigert et al. (2024-08-06 standalone-port ckormanyos)";
 #ifdef _WIN32
 char osver[] = " (Win32)";
 #else

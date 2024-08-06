@@ -42,21 +42,35 @@ bin/xxd -p testfile.txt | grep '48656c6c6f2c20576f726c6421'
 res_05=$?
 echo
 
+echo -n 'Hello, World!' > testfile.txt
+bin/xxd -n 5 testfile.txt | grep 'Hello'
+res_06=$?
+echo
+
+echo -n 'Hello, World!' > testfile.txt
+bin/xxd -g 3 testfile.txt | grep '48656c 6c6f20 576f72 6c6421'
+res_07=$?
+echo
+
 echo -e -n '\x01\x02\x03\x04\x05' > testbin.bin
 bin/xxd testbin.bin | grep '00000000: 0102 0304 05'
-res_06=$?
+res_08=$?
 echo
 
 echo -n 'Hello World!' > testfile.txt
 bin/xxd -o 10 testfile.txt | grep '          H'
-res_07=$?
+res_09=$?
 echo
 
 bin/xxd -o -2 testfile.txt | grep 'fffe'
-res_08=$?
+res_10=$?
 echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08))
+bin/xxd -v | grep 'ckormanyos'
+res_11=$?
+echo
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11))
 
 echo "result_total : "  "$result_total"
 
