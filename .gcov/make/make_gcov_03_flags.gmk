@@ -27,7 +27,7 @@ endif
 
 CFLAGS       = -march=native                                                   \
                -mtune=native                                                   \
-               -O2                                                             \
+               -O0                                                             \
                -Wall                                                           \
                -Wextra                                                         \
                -Wconversion                                                    \

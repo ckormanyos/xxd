@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "make", "make", "{AB992ADD-F
 		.gcov\make\make_gcov_01_generic.gmk = .gcov\make\make_gcov_01_generic.gmk
 		.gcov\make\make_gcov_02_files.gmk = .gcov\make\make_gcov_02_files.gmk
 		.gcov\make\make_gcov_03_flags.gmk = .gcov\make\make_gcov_03_flags.gmk
+		.gcov\make\xxd_tests.sh = .gcov\make\xxd_tests.sh
 	EndProjectSection
 EndProject
 Global
