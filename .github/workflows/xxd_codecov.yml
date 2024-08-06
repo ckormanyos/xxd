@@ -28,7 +28,7 @@ jobs:
         with:
           fetch-depth: '0'
       - name: update-tools
-        run: sudo apt install lcov
+        run: sudo apt install lcov unix2dos
       - name: gnumake-gcc-gcov-native
         run: |
           cd .gcov/make
