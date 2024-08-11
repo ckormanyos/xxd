@@ -776,25 +776,6 @@ main(int argc, char* argv[])
       relseek = 0;
       negseek = 0;
 
-      if(pp[2] && STRNCMP("kip", pp + 2, 3) && STRNCMP("eek", pp + 2, 3))
-      {
-#ifdef TRY_SEEK
-
-        if(pp[2] == '+')
-        {
-          relseek++;
-        }
-
-        if(pp[2 + relseek] == '-')
-        {
-          negseek++;
-        }
-
-#endif
-        seekoff = strtol(pp + 2 + relseek + negseek, (char**)NULL, 0);
-      }
-      else
-      {
         if(!argv[2])
         {
           exit_with_usage();
@@ -817,7 +798,6 @@ main(int argc, char* argv[])
         argv++;
         argc--;
       }
-    }
     else if(!STRNCMP(pp, "-l", 2))
     {
       if(pp[2] && STRNCMP("en", pp + 2, 2))
@@ -856,6 +836,7 @@ main(int argc, char* argv[])
   }
 
   if(!colsgiven || (!cols && hextype != HEX_POSTSCRIPT))
+  {
     switch(hextype)
     {
       case HEX_POSTSCRIPT:
@@ -876,8 +857,10 @@ main(int argc, char* argv[])
         cols = 16;
         break;
     }
+  }
 
   if(octspergrp < 0)
+  {
     switch(hextype)
     {
       case HEX_BITS:
@@ -898,6 +881,7 @@ main(int argc, char* argv[])
         octspergrp = 0;
         break;
     }
+  }
 
   if((hextype == HEX_POSTSCRIPT && cols < 0) ||
       (hextype != HEX_POSTSCRIPT && cols < 1) ||
