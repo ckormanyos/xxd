@@ -97,32 +97,60 @@ echo -n 'lm' | $XXD | grep '6c6d'
 res_15=$?
 echo
 
-echo -n 'lm' | $XXD -u | grep '6C6D'
+echo -n 'lm' | $XXD -capitalize | grep '6c6d'
 res_16=$?
 echo
 
-echo -n 'abc' | $XXD -o 16 | grep '00000010: 6162 63'
+echo -n 'lm' | $XXD -u | grep '6C6D'
 res_17=$?
 echo
 
-echo -n 'abc' | $XXD -o 16 -d | grep '00000016: 6162 63'
+echo -n 'abc' | $XXD -o 16 | grep '00000010: 6162 63'
 res_18=$?
 echo
 
-echo -n 'abc' | $XXD -cols 1 | grep '00000002: 63  c'
+echo -n 'abc' | $XXD -o 16 -d | grep '00000016: 6162 63'
 res_19=$?
 echo
 
-echo -n 'AB' | $XXD -ps | grep '4142'
+echo -n 'abc' | $XXD -cols 1 | grep '00000002: 63  c'
 res_20=$?
+echo
+
+echo -n 'AB' | $XXD -ps | grep '4142'
+res_21=$?
 echo
 
 echo -n 'AB' | $XXD -b -r 2> error.txt
 grep 'Sorry' error.txt
-res_21=$?
+res_22=$?
 echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14+res_15+res_16+res_17+res_18+res_19+res_20+res_21))
+echo -n 'Hello World!' | $XXD -s 1 | grep ' ello'
+res_23=$?
+echo
+
+echo -n 'Hello World!' | $XXD -seek +1 -skip +1 | grep ' ello'
+res_24=$?
+echo
+
+echo -n 'Hello World!' | $XXD -seek +3 -skip +2 | grep ' llo'
+res_25=$?
+echo
+
+echo -n '0123456789' | $XXD -cols 2 | grep '00000008: 3839'
+res_26=$?
+echo
+
+echo -n '0123456789' | $XXD -cols 2 -i | grep '0x38, 0x39'
+res_27=$?
+echo
+
+echo -n 'AB' | $XXD -e -- | grep ' 4241 '
+res_28=$?
+echo
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14+res_15+res_16+res_17+res_18+res_19+res_20+res_21+res_22+res_23+res_24+res_25+res_26+res_27+res_28))
 
 echo "result_total : "  "$result_total"
 echo "res_00       : "  "$res_00"
@@ -147,6 +175,13 @@ echo "res_18       : "  "$res_18"
 echo "res_19       : "  "$res_19"
 echo "res_20       : "  "$res_20"
 echo "res_21       : "  "$res_21"
+echo "res_22       : "  "$res_22"
+echo "res_23       : "  "$res_23"
+echo "res_24       : "  "$res_24"
+echo "res_25       : "  "$res_25"
+echo "res_26       : "  "$res_26"
+echo "res_27       : "  "$res_27"
+echo "res_28       : "  "$res_28"
 echo
 
 exit $result_total
