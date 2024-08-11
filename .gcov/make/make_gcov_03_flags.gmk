@@ -40,7 +40,7 @@ CFLAGS       = -march=native                                                   \
 
 CXXFLAGS     = -march=native                                                   \
                -mtune=native                                                   \
-               -O2                                                             \
+               -O0                                                             \
                -Wall                                                           \
                -Wextra                                                         \
                -Wconversion                                                    \

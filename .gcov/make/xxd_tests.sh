@@ -79,8 +79,7 @@ grep 'ckormanyos' version.txt
 res_11=$?
 echo
 
-echo 'AB' > testfile.txt
-$XXD -b testfile.txt | grep '01000001 01000010'
+echo -n 'AB' | $XXD -b | grep '01000001 01000010'
 res_12=$?
 echo
 
@@ -94,7 +93,36 @@ echo -n 'AB' | $XXD -e | grep ' 4241 '
 res_14=$?
 echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14))
+echo -n 'lm' | $XXD | grep '6c6d'
+res_15=$?
+echo
+
+echo -n 'lm' | $XXD -u | grep '6C6D'
+res_16=$?
+echo
+
+echo -n 'abc' | $XXD -o 16 | grep '00000010: 6162 63'
+res_17=$?
+echo
+
+echo -n 'abc' | $XXD -o 16 -d | grep '00000016: 6162 63'
+res_18=$?
+echo
+
+echo -n 'abc' | $XXD -cols 1 | grep '00000002: 63  c'
+res_19=$?
+echo
+
+echo -n 'AB' | $XXD -ps | grep '4142'
+res_20=$?
+echo
+
+echo -n 'AB' | $XXD -b -r 2> error.txt
+grep 'Sorry' error.txt
+res_21=$?
+echo
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14+res_15+res_16+res_17+res_18+res_19+res_20+res_21))
 
 echo "result_total : "  "$result_total"
 echo "res_00       : "  "$res_00"
@@ -112,6 +140,13 @@ echo "res_11       : "  "$res_11"
 echo "res_12       : "  "$res_12"
 echo "res_13       : "  "$res_13"
 echo "res_14       : "  "$res_14"
+echo "res_15       : "  "$res_15"
+echo "res_16       : "  "$res_16"
+echo "res_17       : "  "$res_17"
+echo "res_18       : "  "$res_18"
+echo "res_19       : "  "$res_19"
+echo "res_20       : "  "$res_20"
+echo "res_21       : "  "$res_21"
 echo
 
 exit $result_total
