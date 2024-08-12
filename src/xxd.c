@@ -447,15 +447,15 @@ huntype(
         ++p;
 
         if(p >= cols)
-          /* skip the rest of the line as garbage */
         {
+          /* skip the rest of the line as garbage */
           c = skip_to_eol(fpi, c);
         }
       }
     }
     else if(n1 < 0 && n2 < 0 && n3 < 0)
-      /* already stumbled into garbage, skip line, wait and see */
     {
+      /* already stumbled into garbage, skip line, wait and see */
       c = skip_to_eol(fpi, c);
     }
 
@@ -611,19 +611,23 @@ main(int argc, char* argv[])
   pname = argv[0];
 
   for(pp = pname; *pp;)
+  {
     if(*pp++ == PATH_SEP)
     {
       pname = pp;
     }
+  }
 
 #ifdef FILE_SEP
 
   for(pp = pname; *pp; pp++)
+  {
     if(*pp == FILE_SEP)
     {
       *pp = '\0';
       break;
     }
+  }
 
 #endif
 
@@ -721,11 +725,15 @@ main(int argc, char* argv[])
     else if (!STRNCMP(pp, "-n", 2))
     {
       if (pp[2] && STRNCMP("ame", pp + 2, 3))
+      {
         varname = pp + 2;
+      }
       else
       {
         if (!argv[2])
+        {
           exit_with_usage();
+        }
 
         varname = argv[2];
         argv++;
@@ -996,10 +1004,12 @@ main(int argc, char* argv[])
       long s = seekoff;
 
       while(s--)
+      {
         if(fgetc_or_die(fp) == EOF)
         {
           error_exit(4, "Sorry, cannot seek.");
         }
+      }
     }
   }
 
@@ -1008,7 +1018,10 @@ main(int argc, char* argv[])
   if(hextype == HEX_CINCLUDE)
   {
     if(varname == NULL && fp != stdin)
+    {
       varname = argv[1];
+    }
+
     if(varname != NULL)
     {
       FPRINTF_OR_DIE((fpo, "unsigned char %s", isdigit((int)varname[0]) ? "__" : ""));
@@ -1049,6 +1062,7 @@ main(int argc, char* argv[])
     }
 
     fclose_or_die(fp, fpo);
+
     return 0;
   }
 
@@ -1166,6 +1180,7 @@ main(int argc, char* argv[])
   }
 
   fclose_or_die(fp, fpo);
+
   return 0;
 }
 
