@@ -44,13 +44,35 @@ if [ $exit_code -ne 0 ]; then
 fi
 
 
-result_total=$((res_00+res_01+res_02))
+res_03=1
+echo -n 'Hello, World!' | $XXD -c
+exit_code=$?
+echo
+
+if [ $exit_code -ne 0 ]; then
+  res_03=0
+fi
+
+
+res_04=1
+echo -n 'Hello, World!' | $XXD -l
+exit_code=$?
+echo
+
+if [ $exit_code -ne 0 ]; then
+  res_04=0
+fi
+
+
+result_total=$((res_00+res_01+res_02+res_03+res_04))
 
 
 echo "result_total : "  "$result_total"
 echo "res_00       : "  "$res_00"
 echo "res_01       : "  "$res_01"
 echo "res_02       : "  "$res_02"
+echo "res_03       : "  "$res_03"
+echo "res_04       : "  "$res_04"
 echo
 
 exit $result_total
