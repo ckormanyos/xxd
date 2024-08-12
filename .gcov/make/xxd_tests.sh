@@ -178,8 +178,12 @@ echo '010000: 41' | $XXD -r > lots_of_zeros && $XXD -a -c 12 lots_of_zeros | gre
 res_34=$?
 echo
 
+$XXD -u -c 64 -p -l 16 /dev/urandom > rnd.txt && grep '0' rnd.txt
+res_35=$?
+echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14+res_15+res_16+res_17+res_18+res_19+res_20+res_21+res_22+res_23+res_24+res_25+res_26+res_27+res_28+res_29+res_30+res_31+res_32+res_33+res_34))
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14+res_15+res_16+res_17+res_18+res_19+res_20+res_21+res_22+res_23+res_24+res_25+res_26+res_27+res_28+res_29+res_30+res_31+res_32+res_33+res_34+res_35))
 
 
 echo "res_00       : "  "$res_00"
@@ -217,6 +221,7 @@ echo "res_31       : "  "$res_31"
 echo "res_32       : "  "$res_32"
 echo "res_33       : "  "$res_33"
 echo "res_34       : "  "$res_34"
+echo "res_35       : "  "$res_35"
 echo "result_total : "  "$result_total"
 echo "xxd_tests"
 echo

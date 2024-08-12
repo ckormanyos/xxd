@@ -21,9 +21,11 @@ echo "#include <string.h>"                                                      
 echo ""                                                                                                           >> example.c
 echo -n "Hello, World!" > example.bin && $XXD -i example.bin                                                      >> example.c
 echo ""                                                                                                           >> example.c
-echo "int main() {"                                                                                               >> example.c
-echo "const int result = strncmp(\"Hello, World!\", (const char*) example_bin, example_bin_len) == 0 ? 0 : -1;"   >> example.c
-echo "printf(\"%s\n\",example_bin); return result;"                                                               >> example.c
+echo "int main()"                                                                                                    >> example.c
+echo "{"                                                                                                             >> example.c
+echo "  const int result = (strncmp(\"Hello, World!\", (const char*) example_bin, example_bin_len) == 0) ? 0 : -1;"  >> example.c
+echo "  printf(\"%s\n\",example_bin);"                                                                               >> example.c
+echo "  return result;"                                                                                              >> example.c
 echo "}"                                                                                                          >> example.c
 g++ -Wall -Wextra -O2 -x c example.c -o example
 ./example
@@ -37,5 +39,6 @@ result_total=$((result))
 echo "result_total : "  "$result_total"
 echo "xxd_2_gcc"
 echo
+
 
 exit $result_total
