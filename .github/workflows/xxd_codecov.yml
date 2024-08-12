@@ -41,6 +41,9 @@ jobs:
           echo
           make gcov -f make_gcov_01_generic.gmk --jobs=8 MY_ALL_COV=0 MY_CC=${{ matrix.compiler }} MY_STD=${{ matrix.standard }}
           echo
+          echo "bash ./xxd_2_gcc.sh"
+          bash ./xxd_2_gcc.sh
+          echo
           echo "bash ./xxd_tests.sh"
           bash ./xxd_tests.sh
           echo
