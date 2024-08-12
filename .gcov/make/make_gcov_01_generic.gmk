@@ -79,6 +79,7 @@ gcov: execute_tests
 
 .PHONY: execute_tests
 execute_tests : $(PATH_BIN)/xxd
+	@-bash ./xxd_2_gcc.sh
 	@-bash ./xxd_tests.sh
 	@-bash ./xxd_edges.sh
 
