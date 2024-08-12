@@ -107,6 +107,8 @@ The following adaptions have been undertaken.
   - Resolve code-technical issues (and/or disable some) found via quality checks performed with CodeSonar, as described in [issue 15](https://github.com/ckormanyos/xxd/issues/15) and [issue 23](https://github.com/ckormanyos/xxd/issues/23).
   - Implementation of the `-n` flag, as seen in [vim/vim@83e1180](https://github.com/vim/vim/commit/83e11800cc3775de3135ac7d823137c8c1e87fa1) and added in [PR 45](https://github.com/ckormanyos/xxd/pull/45).
   - Use `fgetc()`/`fputc()` instead of `getc()`/`putc()`. See also [PR 50](https://github.com/ckormanyos/xxd/pull/50) which fixes a bug where sometimes line feeds `0x0A` (i.e., `\n`) get an additional (unexpected) carriage return `0x0D` (i.e., `\r`) - or sometimes even two - with them on `Win*` when reading/writing files.
+  - Employ shell scripts in combination with `gcov`, `lcov` (and locally) `htmlgen` to obtain coverage results in CI. The coverage results are uploaded to [codecov](https://app.codecov.io/gh/ckormanyos/xxd) for this repo.
+
 
 ## Usage
 
