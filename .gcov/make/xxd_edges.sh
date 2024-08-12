@@ -25,12 +25,32 @@ if [ $exit_code -ne 0 ]; then
   res_00=0
 fi
 
+res_01=1
+echo -n 'abc' | $XXD -cols 2>/dev/null
+exit_code=$?
+echo
 
-result_total=$((res_00))
+if [ $exit_code -ne 0 ]; then
+  res_01=0
+fi
+
+res_02=1
+echo -n 'abc' | $XXD -o 2>/dev/null
+exit_code=$?
+echo
+
+if [ $exit_code -ne 0 ]; then
+  res_02=0
+fi
+
+
+result_total=$((res_00+res_01+res_02))
 
 
 echo "result_total : "  "$result_total"
 echo "res_00       : "  "$res_00"
+echo "res_01       : "  "$res_01"
+echo "res_02       : "  "$res_02"
 echo
 
 exit $result_total
