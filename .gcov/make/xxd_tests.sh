@@ -56,7 +56,7 @@ res_06=$?
 echo
 
 echo -n '0123456789' > testfile.txt
-$XXD -g 5 testfile.txt | grep '3031323334 3536373839'
+$XXD -group 5 testfile.txt | grep '3031323334 3536373839'
 res_07=$?
 echo
 
@@ -150,7 +150,22 @@ echo -n 'AB' | $XXD -e -- | grep ' 4241 '
 res_28=$?
 echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14+res_15+res_16+res_17+res_18+res_19+res_20+res_21+res_22+res_23+res_24+res_25+res_26+res_27+res_28))
+echo -n '00000000: 4865 6c6c 6f20 576f 726c 640a            Hello World.' > input.hex && $XXD -r -C input.hex output.txt
+grep 'Hello' output.txt
+res_29=$?
+echo
+
+echo -n '00000000: 4865 6c6c 6f20 576f 726c 640a            Hello World.' > input.hex && $XXD -r -E input.hex output.txt
+grep 'Hello' output.txt
+res_30=$?
+echo
+
+echo -n '00000000: 4865 6c6c 6f20 576f 726c 640a            Hello World.' > input.hex && $XXD -r -cols input.hex output.txt
+grep 'Hello' output.txt
+res_31=$?
+echo
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14+res_15+res_16+res_17+res_18+res_19+res_20+res_21+res_22+res_23+res_24+res_25+res_26+res_27+res_28+res_29+res_30+res_31))
 
 echo "result_total : "  "$result_total"
 echo "res_00       : "  "$res_00"
@@ -182,6 +197,9 @@ echo "res_25       : "  "$res_25"
 echo "res_26       : "  "$res_26"
 echo "res_27       : "  "$res_27"
 echo "res_28       : "  "$res_28"
+echo "res_29       : "  "$res_29"
+echo "res_30       : "  "$res_30"
+echo "res_31       : "  "$res_31"
 echo
 
 exit $result_total
