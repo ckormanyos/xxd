@@ -44,6 +44,9 @@ jobs:
           echo "bash ./xxd_tests.sh"
           bash ./xxd_tests.sh
           echo
+          echo "bash ./xxd_edges.sh"
+          bash ./xxd_edges.sh
+          echo
           echo "return to xxd root directory"
           cd ../..
       - name: upload-codecov
