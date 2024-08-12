@@ -178,7 +178,7 @@ echo '010000: 41' | $XXD -r > lots_of_zeros && $XXD -a -c 12 lots_of_zeros | gre
 res_34=$?
 echo
 
-$XXD -u -c 64 -p -l 16 /dev/urandom > rnd.txt && grep '0' rnd.txt
+$XXD -u -c 64 -p -l 128 /dev/urandom > rnd.txt && ((grep '0' rnd.txt) || (grep '1' rnd.txt) || (grep '2' rnd.txt))
 res_35=$?
 echo
 
