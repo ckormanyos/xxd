@@ -45,7 +45,7 @@ fi
 
 
 res_03=1
-echo -n 'Hello, World!' | $XXD -c
+echo -n 'Hello, World!' | $XXD -c 2>/dev/null
 exit_code=$?
 echo
 
@@ -55,7 +55,7 @@ fi
 
 
 res_04=1
-echo -n 'Hello, World!' | $XXD -l
+echo -n 'Hello, World!' | $XXD -l 2>/dev/null
 exit_code=$?
 echo
 
@@ -67,12 +67,13 @@ fi
 result_total=$((res_00+res_01+res_02+res_03+res_04))
 
 
-echo "result_total : "  "$result_total"
 echo "res_00       : "  "$res_00"
 echo "res_01       : "  "$res_01"
 echo "res_02       : "  "$res_02"
 echo "res_03       : "  "$res_03"
 echo "res_04       : "  "$res_04"
+echo "result_total : "  "$result_total"
+echo "xxd_edges"
 echo
 
 exit $result_total
