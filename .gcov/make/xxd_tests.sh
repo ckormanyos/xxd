@@ -37,7 +37,7 @@ sha1sum xxd.1.txt | grep b271bc7fc3716a44830bc33ee3a8313c0d3ab7f7
 res_02=$?
 echo
 
-$XXD -s 0x36 -l 13 -c 13 ../../doc/xxd.1 | grep '21st May 1996'
+$XXD -s 0x36 -len 13 -c 13 ../../doc/xxd.1 | grep '21st May 1996'
 res_03=$?
 echo
 
