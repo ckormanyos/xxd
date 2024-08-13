@@ -696,6 +696,7 @@ main(int argc, char* argv[])
       }
       else if(pp[2] && STRNCMP("ols", pp + 2, 3))
       {
+        /* TODO ckormanyos: This is dead code. */
         colsgiven = 1;
         cols = (int)strtol(pp + 2, NULL, 0);
       }
@@ -716,6 +717,7 @@ main(int argc, char* argv[])
     {
       if(pp[2] && STRNCMP("roup", pp + 2, 4))
       {
+        /* TODO ckormanyos: This is dead code. */
         octspergrp = (int)strtol(pp + 2, NULL, 0);
       }
       else
