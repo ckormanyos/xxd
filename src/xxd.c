@@ -59,9 +59,10 @@
  *             Also run through Artistic Style with (among others) allman style.
  * 15.03.2023  Handle CodeSonar issues by Christopher Kormanyos.
  * 06.08.2024  Add comments for running unit tests by Christopher Kormanyos.
- *   cd /mnt/c/Users/ckorm/Documents/Ks/PC_Software/xxd/.gcov/make
- *   make prepare -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=g++
- *   make gcov -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=g++
+ *               cd /mnt/c/Users/ckorm/Documents/Ks/PC_Software/xxd/.gcov/make
+ *               make prepare -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=g++
+ *               make gcov -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=g++
+ * 12.08.2024  Remove unreachable code and refactor "continue" statements.
  *
  * (c) 1990-1998 by Juergen Weigert (jnweiger@gmail.com)
  *
@@ -319,7 +320,7 @@ fclose_or_die(FILE* fpi, FILE* fpo)
 static int
 parse_hex_digit(int c)
 {
-  return (c >= '0' && c <= '9') ? c - '0'
+  return   (c >= '0' && c <= '9') ? c - '0'
          : (c >= 'a' && c <= 'f') ? c - 'a' + 10
          : (c >= 'A' && c <= 'F') ? c - 'A' + 10
          : -1;
@@ -371,103 +372,110 @@ huntype(
 
   while((c = fgetc(fpi)) != EOF)
   {
-    if(c == '\r')  /* Doze style input file? */
+    /* Doze style input file?
+     * Or also:
+     * Allow multiple spaces. This doesn't work when there is normal
+     * text after the hex codes in the last line that looks like hex,
+     * thus only use it for PostScript format.
+     */
+
+    bool skip_this_char =
+    (
+      (c == '\r') || (hextype == HEX_POSTSCRIPT && (c == ' ' || c == '\n' || c == '\t'))
+    );
+
+    if(!skip_this_char)
     {
-      continue;
-    }
+      const int n3 = n2;
 
-    /* Allow multiple spaces.  This doesn't work when there is normal text
-     * after the hex codes in the last line that looks like hex, thus only
-     * use it for PostScript format. */
-    if(hextype == HEX_POSTSCRIPT && (c == ' ' || c == '\n' || c == '\t'))
-    {
-      continue;
-    }
+      n2 = n1;
 
-    const int n3 = n2;
-    n2 = n1;
+      n1 = parse_hex_digit(c);
 
-    n1 = parse_hex_digit(c);
-
-    if(n1 == -1 && ign_garb)
-    {
-      continue;
-    }
-
-    ign_garb = 0;
-
-    if(!hextype && (p >= cols))
-    {
-      if(n1 < 0)
+      if(!(n1 == -1 && ign_garb))
       {
-        p = 0;
-        continue;
-      }
+        ign_garb = 0;
 
-      want_off = (want_off << 4) | n1;
-      continue;
-    }
+        if(!hextype && (p >= cols))
+        {
+          if(n1 < 0)
+          {
+            p = 0;
 
-    if(base_off + want_off != have_off)
-    {
-      if(fflush(fpo) != 0)
-      {
-        perror_exit(3);
-      }
+            skip_this_char = true;
+          }
+
+          if(!skip_this_char) { want_off = (want_off << 4) | n1; }
+
+          skip_this_char = true;
+        }
+
+        if(!skip_this_char)
+        {
+          if(base_off + want_off != have_off)
+          {
+            if(fflush(fpo) != 0)
+            {
+              perror_exit(3);
+            }
 
 #ifdef TRY_SEEK
 
-      if(fseek(fpo, base_off + want_off - have_off, SEEK_CUR) >= 0)
-      {
-        have_off = base_off + want_off;
-      }
+            if(fseek(fpo, base_off + want_off - have_off, SEEK_CUR) >= 0)
+            {
+              have_off = base_off + want_off;
+            }
 
 #endif
 
-      if(base_off + want_off < have_off)
-      {
-        error_exit(5, "Sorry, cannot seek backwards.");
-      }
+            if(base_off + want_off < have_off)
+            {
+              error_exit(5, "Sorry, cannot seek backwards.");
+            }
 
-      for(; have_off < base_off + want_off; have_off++)
-      {
-        fputc_or_die(0, fpo);
-      }
-    }
+            for(; have_off < base_off + want_off; have_off++)
+            {
+              fputc_or_die(0, fpo);
+            }
+          }
 
-    if(n2 >= 0 && n1 >= 0)
-    {
-      fputc_or_die((n2 << 4) | n1, fpo);
-      have_off++;
-      want_off++;
-      n1 = -1;
+          if(n2 >= 0 && n1 >= 0)
+          {
+            fputc_or_die((n2 << 4) | n1, fpo);
+            have_off++;
+            want_off++;
+            n1 = -1;
 
-      if(!hextype)
-      {
-        ++p;
+            if(!hextype)
+            {
+              ++p;
 
-        if(p >= cols)
-        {
-          /* skip the rest of the line as garbage */
-          c = skip_to_eol(fpi, c);
+              if(p >= cols)
+              {
+                /* skip the rest of the line as garbage */
+                c = skip_to_eol(fpi, c);
+              }
+            }
+          }
+          else if(n1 < 0 && n2 < 0 && n3 < 0)
+          {
+            /* already stumbled into garbage, skip line, wait and see */
+            c = skip_to_eol(fpi, c);
+          }
+
+          if(c == '\n')
+          {
+            if(!hextype)
+            {
+              want_off = 0;
+            }
+
+            p = cols;
+
+            ign_garb = 1;
+          }
         }
       }
-    }
-    else if(n1 < 0 && n2 < 0 && n3 < 0)
-    {
-      /* already stumbled into garbage, skip line, wait and see */
-      c = skip_to_eol(fpi, c);
-    }
-
-    if(c == '\n')
-    {
-      if(!hextype)
-      {
-        want_off = 0;
-      }
-
-      p = cols;
-      ign_garb = 1;
     }
   }
 
@@ -784,45 +792,38 @@ main(int argc, char* argv[])
       relseek = 0;
       negseek = 0;
 
-        if(!argv[2])
-        {
-          exit_with_usage();
-        }
+      if(!argv[2])
+      {
+        exit_with_usage();
+      }
 
 #ifdef TRY_SEEK
 
-        if(argv[2][0] == '+')
-        {
-          relseek++;
-        }
+      if(argv[2][0] == '+')
+      {
+        relseek++;
+      }
 
-        if(argv[2][relseek] == '-')
-        {
-          negseek++;
-        }
+      if(argv[2][relseek] == '-')
+      {
+        negseek++;
+      }
 
 #endif
-        seekoff = strtol(argv[2] + relseek + negseek, (char**)NULL, 0);
-        argv++;
-        argc--;
-      }
-    else if(!STRNCMP(pp, "-l", 2))
+      seekoff = strtol(argv[2] + relseek + negseek, (char**)NULL, 0);
+      argv++;
+      argc--;
+    }
+    else if(!STRNCMP(pp, "-l", 2) || !STRNCMP("-len", pp, 4))
     {
-      if(pp[2] && STRNCMP("en", pp + 2, 2))
+      if(!argv[2])
       {
-        length = strtol(pp + 2, (char**)NULL, 0);
+        exit_with_usage();
       }
-      else
-      {
-        if(!argv[2])
-        {
-          exit_with_usage();
-        }
 
-        length = strtol(argv[2], (char**)NULL, 0);
-        argv++;
-        argc--;
-      }
+      length = strtol(argv[2], (char**)NULL, 0);
+      argv++;
+      argc--;
     }
     else if(!strcmp(pp, "--"))  /* end of options */
     {
