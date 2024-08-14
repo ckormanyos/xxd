@@ -667,7 +667,7 @@ main(int argc, char* argv[])
     {
       hextype = HEX_CINCLUDE;
     }
-    else if(!STRNCMP(pp, "-C", 2))
+    else if(!STRNCMP(pp, "-C", 2) || (pp[2] && !STRNCMP(pp, "-capitalize", 11)))
     {
       capitalize = 1;
     }
@@ -688,67 +688,39 @@ main(int argc, char* argv[])
       fprintf(stderr, "%s%s\n", version, osver);
       exit(0);
     }
-    else if(!STRNCMP(pp, "-c", 2))
+    else if((!STRNCMP(pp, "-c", 2) && !(pp[2] && STRNCMP("apitalize", pp + 2, 9))) || (pp[2] && !STRNCMP("ols", pp + 2, 3)))
     {
-      if(pp[2] && !STRNCMP("apitalize", pp + 2, 9))
+      if(!argv[2])
       {
-        capitalize = 1;
+        exit_with_usage();
       }
-      else if(pp[2] && STRNCMP("ols", pp + 2, 3))
-      {
-        /* TODO ckormanyos: This is dead code. */
-        colsgiven = 1;
-        cols = (int)strtol(pp + 2, NULL, 0);
-      }
-      else
-      {
-        if(!argv[2])
-        {
-          exit_with_usage();
-        }
 
-        colsgiven = 1;
-        cols = (int)strtol(argv[2], NULL, 0);
-        argv++;
-        argc--;
-      }
+      colsgiven = 1;
+      cols = (int)strtol(argv[2], NULL, 0);
+      argv++;
+      argc--;
     }
-    else if(!STRNCMP(pp, "-g", 2))
+    else if(!STRNCMP(pp, "-g", 2) || (pp[2] && !STRNCMP("roup", pp + 2, 4)))
     {
-      if(pp[2] && STRNCMP("roup", pp + 2, 4))
+      if(!argv[2])
       {
-        /* TODO ckormanyos: This is dead code. */
-        octspergrp = (int)strtol(pp + 2, NULL, 0);
+        exit_with_usage();
       }
-      else
-      {
-        if(!argv[2])
-        {
-          exit_with_usage();
-        }
 
-        octspergrp = (int)strtol(argv[2], NULL, 0);
-        argv++;
-        argc--;
-      }
+      octspergrp = (int)strtol(argv[2], NULL, 0);
+      argv++;
+      argc--;
     }
-    else if (!STRNCMP(pp, "-n", 2))
+    else if (!STRNCMP(pp, "-n", 2) || (pp[2] && !STRNCMP("ame", pp + 2, 3)))
     {
-      if (pp[2] && STRNCMP("ame", pp + 2, 3))
+      if (!argv[2])
       {
-        varname = pp + 2;
+        exit_with_usage();
       }
-      else
-      {
-        if (!argv[2])
-        {
-          exit_with_usage();
-        }
 
-        varname = argv[2];
-        argv++;
-        argc--;
-      }
+      varname = argv[2];
+      argv++;
+      argc--;
     }
     else if(!STRNCMP(pp, "-o", 2))
     {
