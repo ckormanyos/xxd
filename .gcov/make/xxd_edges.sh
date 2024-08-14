@@ -63,8 +63,17 @@ if [ $exit_code -ne 0 ]; then
   res_04=0
 fi
 
+res_05=1
+echo -n 'Hello, World!' | $XXD -n 2>/dev/null
+exit_code=$?
+echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04))
+if [ $exit_code -ne 0 ]; then
+  res_05=0
+fi
+
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05))
 
 
 echo "res_00       : "  "$res_00"
@@ -72,6 +81,7 @@ echo "res_01       : "  "$res_01"
 echo "res_02       : "  "$res_02"
 echo "res_03       : "  "$res_03"
 echo "res_04       : "  "$res_04"
+echo "res_05       : "  "$res_05"
 echo "result_total : "  "$result_total"
 echo "xxd_edges"
 echo

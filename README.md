@@ -107,12 +107,12 @@ The following adaptions have been undertaken.
   - Resolve code-technical issues (and/or disable some) found via quality checks performed with CodeSonar, as described in [issue 15](https://github.com/ckormanyos/xxd/issues/15) and [issue 23](https://github.com/ckormanyos/xxd/issues/23).
   - Implementation of the `-n` flag, as seen in [vim/vim@83e1180](https://github.com/vim/vim/commit/83e11800cc3775de3135ac7d823137c8c1e87fa1) and added in [PR 45](https://github.com/ckormanyos/xxd/pull/45).
   - Use `fgetc()`/`fputc()` instead of `getc()`/`putc()`. See also [PR 50](https://github.com/ckormanyos/xxd/pull/50) which fixes a bug where sometimes line feeds `0x0A` (i.e., `\n`) get an additional (unexpected) carriage return `0x0D` (i.e., `\r`) - or sometimes even two - with them on `Win*` when reading/writing files.
-  - Employ shell scripts in combination with `gcov`, `lcov` (and locally) `htmlgen` to obtain coverage results in CI. The coverage results are uploaded to [codecov](https://app.codecov.io/gh/ckormanyos/xxd) for this repo.
+  - Employ shell scripts in combination with `gcov`, `lcov` (and locally) `htmlgen` to obtain [code coverage results](https://app.codecov.io/gh/ckormanyos/xxd) in CI for this repo.
 
 
 ## Usage
 
-The program manual at the [xxd(1) - Linux man page](https://linux.die.net/man/1/xxd)
+The program manual at the [`xxd(1)` - Linux man page](https://linux.die.net/man/1/xxd)
 states:
 
 `xxd` - make a hexdump or do the reverse.
@@ -128,17 +128,20 @@ Moreover, it can be used to perform binary file patching.
 ### Examples
 
 Print everything but the first three lines (hex 0x30 bytes) of file.
-```
+
+```sh
 % xxd -s 0x30 file
 ```
 
 Print 3 lines (hex 0x30 bytes) from the end of file.
-```
+
+```sh
 % xxd -s -0x30 file
 ```
 
 Print 120 bytes as continuous hexdump with 20 octets per line.
-```
+
+```sh
 % xxd -l 120 -ps -c 20 xxd.1
 2e54482058584420312022417567757374203139
 39362220224d616e75616c207061676520666f72
@@ -149,7 +152,8 @@ Print 120 bytes as continuous hexdump with 20 octets per line.
 ```
 
 Hexdump the first 120 bytes of this man page with 12 octets per line.
-```
+
+```sh
 % xxd -l 120 -c 12 xxd.1
 0000000: 2e54 4820 5858 4420 3120 2241  .TH XXD 1 "A
 000000c: 7567 7573 7420 3139 3936 2220  ugust 1996"
@@ -164,30 +168,34 @@ Hexdump the first 120 bytes of this man page with 12 octets per line.
 ```
 
 Display just the date from the file xxd.1
-```
+
+```sh
 % xxd -s 0x36 -l 13 -c 13 xxd.1
 0000036: 3231 7374 204d 6179 2031 3939 36  21st May 1996
 ```
 
 Copy input_file to output_file and prepend 100 bytes of value 0x00.
-```
+```sh
 % xxd input_file | xxd -r -s 100 > output_file
 ```
 
 Patch the date in the file xxd.1
-```
+
+```sh
 % echo "0000037: 3574 68" | xxd -r - xxd.1
 % xxd -s 0x36 -l 13 -c 13 xxd.1
 0000036: 3235 7468 204d 6179 2031 3939 36  25th May 1996
 ```
 
 Create a 65537 byte file with all bytes 0x00, except for the  last  one which is 'A' (hex 0x41).
-```
+
+```sh
 % echo "010000: 41" | xxd -r > file
 ```
 
 Hexdump this file with autoskip.
-```
+
+```sh
 % xxd -a -c 12 file
 0000000: 0000 0000 0000 0000 0000 0000  ............
 *
@@ -197,12 +205,14 @@ Hexdump this file with autoskip.
 Create  a  1  byte  file containing a single 'A' character.  The number
 after '-r -s' adds to the linenumbers found in the file; in effect, the
 leading bytes are suppressed.
-```
+
+```sh
 % echo "010000: 41" | xxd -r -s -0x10000 > file
 ```
 
 Read single characters from a serial line
-```
+
+```sh
 % xxd -c1 < /dev/term/b &
 % stty < /dev/term/b -echo -opost -isig -icanon min 1
 % echo -n foo > /dev/term/b
@@ -219,7 +229,8 @@ several straightforward `xxd` test cases.
 
 A (growing) test suite is present in
 [`xxd_tests.sh`](./.gcov/make/xxd_tests.sh).
-These tests are used in CI to obtain code coverage information.
+These tests are used in CI to verify the expected functionality and also
+to obtain [code coverage results](https://app.codecov.io/gh/ckormanyos/xxd).
 
 ### Origins and Licensing
 
