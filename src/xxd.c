@@ -688,7 +688,7 @@ main(int argc, char* argv[])
       fprintf(stderr, "%s%s\n", version, osver);
       exit(0);
     }
-    else if((!STRNCMP(pp, "-c", 2) && !(pp[2] && STRNCMP("apitalize", pp + 2, 9))) || (pp[2] && !STRNCMP("ols", pp + 2, 3)))
+    else if((!STRNCMP(pp, "-c", 2) && !(pp[2] && STRNCMP("-capitalize", pp, 11))) || (pp[2] && !STRNCMP("-cols", pp, 5)))
     {
       if(!argv[2])
       {
@@ -700,7 +700,7 @@ main(int argc, char* argv[])
       argv++;
       argc--;
     }
-    else if(!STRNCMP(pp, "-g", 2) || (pp[2] && !STRNCMP("roup", pp + 2, 4)))
+    else if(!STRNCMP(pp, "-g", 2) || (pp[2] && !STRNCMP("-group", pp, 6)))
     {
       if(!argv[2])
       {
@@ -711,7 +711,7 @@ main(int argc, char* argv[])
       argv++;
       argc--;
     }
-    else if (!STRNCMP(pp, "-n", 2) || (pp[2] && !STRNCMP("ame", pp + 2, 3)))
+    else if (!STRNCMP(pp, "-n", 2) || (pp[2] && !STRNCMP("-name", pp, 5)))
     {
       if (!argv[2])
       {
@@ -722,44 +722,37 @@ main(int argc, char* argv[])
       argv++;
       argc--;
     }
-    else if(!STRNCMP(pp, "-o", 2))
+    else if(!STRNCMP(pp, "-o", 2) || (pp[2] && !STRNCMP("-offset", pp, 7)))
     {
       int reloffset = 0;
       int negoffset = 0;
 
-      if(pp[2] && STRNCMP("ffset", pp + 2, 5))
+      if(!argv[2])
       {
-        displayoff = strtoul(pp + 2, NULL, 0);
+        exit_with_usage();
+      }
+
+      if(argv[2][0] == '+')
+      {
+        reloffset++;
+      }
+
+      if(argv[2][reloffset] == '-')
+      {
+        negoffset++;
+      }
+
+      if(negoffset)
+      {
+        displayoff = ULONG_MAX - strtoul(argv[2] + reloffset + negoffset, NULL, 0) + 1;
       }
       else
       {
-        if(!argv[2])
-        {
-          exit_with_usage();
-        }
-
-        if(argv[2][0] == '+')
-        {
-          reloffset++;
-        }
-
-        if(argv[2][reloffset] == '-')
-        {
-          negoffset++;
-        }
-
-        if(negoffset)
-        {
-          displayoff = ULONG_MAX - strtoul(argv[2] + reloffset + negoffset, NULL, 0) + 1;
-        }
-        else
-        {
-          displayoff = strtoul(argv[2] + reloffset + negoffset, NULL, 0);
-        }
-
-        argv++;
-        argc--;
+        displayoff = strtoul(argv[2] + reloffset + negoffset, NULL, 0);
       }
+
+      argv++;
+      argc--;
     }
     else if(!STRNCMP(pp, "-s", 2))
     {
