@@ -72,8 +72,17 @@ if [ $exit_code -ne 0 ]; then
   res_05=0
 fi
 
+res_06=1
+echo "010: 4141" | $XXD -r -s -0x11 > a_file
+exit_code=$?
+echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04+res_05))
+if [ $exit_code -ne 0 ]; then
+  res_06=0
+fi
+
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06))
 
 
 echo "res_00       : "  "$res_00"
@@ -82,6 +91,7 @@ echo "res_02       : "  "$res_02"
 echo "res_03       : "  "$res_03"
 echo "res_04       : "  "$res_04"
 echo "res_05       : "  "$res_05"
+echo "res_06       : "  "$res_06"
 echo "result_total : "  "$result_total"
 echo "xxd_edges"
 echo
