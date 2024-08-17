@@ -9,7 +9,7 @@ name: xxd_codecov
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -33,13 +33,15 @@ jobs:
         run: |
           cd .gcov/make
           echo "build and run gcov/lcov/genhtml"
-          echo "make prepare -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=${{ matrix.compiler }} MY_STD=${{ matrix.standard }}"
+          echo "make prepare -f make_gcov_01_generic.gmk MY_ALL_COV=1 MY_CC=${{ matrix.compiler }} MY_STD=${{ matrix.standard }}"
           echo
-          make prepare -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=${{ matrix.compiler }} MY_STD=${{ matrix.standard }}
+          make prepare -f make_gcov_01_generic.gmk MY_ALL_COV=1 MY_CC=${{ matrix.compiler }} MY_STD=${{ matrix.standard }}
           echo
-          echo "make gcov -f make_gcov_01_generic.gmk --jobs=8 MY_ALL_COV=0 MY_CC=${{ matrix.compiler }} MY_STD=${{ matrix.standard }}"
+          echo "make gcov -f make_gcov_01_generic.gmk --jobs=8 MY_ALL_COV=1 MY_CC=${{ matrix.compiler }} MY_STD=${{ matrix.standard }}"
           echo
-          make gcov -f make_gcov_01_generic.gmk --jobs=8 MY_ALL_COV=0 MY_CC=${{ matrix.compiler }} MY_STD=${{ matrix.standard }}
+          make gcov -f make_gcov_01_generic.gmk --jobs=8 MY_ALL_COV=1 MY_CC=${{ matrix.compiler }} MY_STD=${{ matrix.standard }}
+          echo
+          echo "run the tests standalone on the pipeline to verify that all tests pass"
           echo
           echo "bash ./xxd_2_gcc.sh"
           bash ./xxd_2_gcc.sh
