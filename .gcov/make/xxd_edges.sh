@@ -73,7 +73,7 @@ if [ $exit_code -ne 0 ]; then
 fi
 
 res_06=1
-echo "010: 4141" | $XXD -r -s -0x11 > a_file
+echo "010: 4141" | $XXD -r -s -0x11 2>/dev/null > a_file
 exit_code=$?
 echo
 
