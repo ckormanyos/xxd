@@ -893,8 +893,8 @@ main(int argc, char* argv[])
   {
     if((fp = fopen(argv[1], BIN_READ(!revert))) == NULL)
     {
-      fprintf(stderr, "%s: ", pname);
-      error_exit(2, argv[1]);
+      fprintf(stderr, "%s: ", pname); // LCOV_EXCL_LINE
+      error_exit(2, argv[1]);         // LCOV_EXCL_LINE
     }
   }
 
@@ -910,16 +910,16 @@ main(int argc, char* argv[])
 
     if(fd < 0)
     {
-      fprintf(stderr, "%s: ", pname);
-      error_exit(3, argv[2]);
+      fprintf(stderr, "%s: ", pname); // LCOV_EXCL_LINE
+      error_exit(3, argv[2]);         // LCOV_EXCL_LINE
     }
 
     fpo = fdopen(fd, BIN_WRITE(revert));
 
     if(fpo == NULL)
     {
-      fprintf(stderr, "%s: ", pname);
-      error_exit(3, argv[2]);
+      fprintf(stderr, "%s: ", pname); // LCOV_EXCL_LINE
+      error_exit(3, argv[2]);         // LCOV_EXCL_LINE
     }
 
     rewind(fpo);
