@@ -894,8 +894,7 @@ main(int argc, char* argv[])
     if((fp = fopen(argv[1], BIN_READ(!revert))) == NULL)
     {
       fprintf(stderr, "%s: ", pname);
-      perror(argv[1]);
-      return 2;
+      error_exit(2, argv[1]);
     }
   }
 
@@ -912,8 +911,7 @@ main(int argc, char* argv[])
     if(fd < 0)
     {
       fprintf(stderr, "%s: ", pname);
-      perror(argv[2]);
-      return 3;
+      error_exit(3, argv[2]);
     }
 
     fpo = fdopen(fd, BIN_WRITE(revert));
@@ -921,8 +919,7 @@ main(int argc, char* argv[])
     if(fpo == NULL)
     {
       fprintf(stderr, "%s: ", pname);
-      perror(argv[2]);
-      return 3;
+      error_exit(3, argv[2]);
     }
 
     rewind(fpo);
