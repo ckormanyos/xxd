@@ -206,8 +206,16 @@ echo '000002: 41' | $XXD -r > few_zeros && $XXD -a -c 1 few_zeros | grep '00'
 res_41=$?
 echo
 
+echo -n 'abc' | $XXD -cols 1 -e | grep '00000002: 63  c'
+res_42=$?
+echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14+res_15+res_16+res_17+res_18+res_19+res_20+res_21+res_22+res_23+res_24+res_25+res_26+res_27+res_28+res_29+res_30+res_31+res_32+res_33+res_34+res_35+res_36+res_37+res_38+res_39+res_40+res_41))
+echo -e -n '\n\t ' | $XXD -u -p | grep '0A0920'
+res_43=$?
+echo
+
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09+res_10+res_11+res_12+res_13+res_14+res_15+res_16+res_17+res_18+res_19+res_20+res_21+res_22+res_23+res_24+res_25+res_26+res_27+res_28+res_29+res_30+res_31+res_32+res_33+res_34+res_35+res_36+res_37+res_38+res_39+res_40+res_41+res_42+res_43))
 
 
 echo "res_00       : "  "$res_00"
@@ -252,6 +260,8 @@ echo "res_38       : "  "$res_38"
 echo "res_39       : "  "$res_39"
 echo "res_40       : "  "$res_40"
 echo "res_41       : "  "$res_41"
+echo "res_42       : "  "$res_42"
+echo "res_43       : "  "$res_43"
 echo "result_total : "  "$result_total"
 echo "xxd_tests"
 echo

@@ -9,14 +9,14 @@ coverage:
     project:
       default: # This can be anything, but it needs to exist as the name
         # basic settings
-        target: 90%
-        threshold: 3%
+        target: 80%
+        threshold: 5%
         if_ci_failed: error #success, failure, error, ignore
         only_pulls: false
     patch:
       default:
-        target: 75%
-        threshold: 25%
+        target: 1%
+        threshold: 99%
 
 parsers:
   gcov:

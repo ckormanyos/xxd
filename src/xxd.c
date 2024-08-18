@@ -250,7 +250,6 @@ exit_with_usage(void)
   exit(1);
 }
 
-// LCOV_EXCL_START
 static void
 perror_exit(int ret)
 {
@@ -258,7 +257,6 @@ perror_exit(int ret)
   perror(NULL);
   exit(ret);
 }
-// LCOV_EXCL_STOP
 
 static void
 error_exit(int ret, char* msg)
@@ -274,7 +272,7 @@ fgetc_or_die(FILE* fpi)
 
   if(c == EOF && ferror(fpi))
   {
-    perror_exit(2); // LCOV_EXCL_LINE
+    perror_exit(2);
   }
 
   return c;
@@ -285,7 +283,7 @@ fputc_or_die(int c, FILE* fpo)
 {
   if(fputc(c, fpo) == EOF)
   {
-    perror_exit(3); // LCOV_EXCL_LINE
+    perror_exit(3);
   }
 }
 
@@ -294,7 +292,7 @@ fputs_or_die(const char* s, FILE* fpo)
 {
   if(fputs(s, fpo) == EOF)
   {
-    perror_exit(3); // LCOV_EXCL_LINE
+    perror_exit(3);
   }
 }
 
@@ -306,12 +304,12 @@ fclose_or_die(FILE* fpi, FILE* fpo)
 {
   if(fclose(fpo) != 0)
   {
-    perror_exit(3); // LCOV_EXCL_LINE
+    perror_exit(3);
   }
 
   if(fclose(fpi) != 0)
   {
-    perror_exit(2); // LCOV_EXCL_LINE
+    perror_exit(2);
   }
 }
 
@@ -398,7 +396,7 @@ huntype(
       {
         ign_garb = 0;
 
-        if(!hextype && (p >= cols))
+        if((hextype == HEX_NORMAL) && (p >= cols))
         {
           if(n1 < 0)
           {
@@ -418,7 +416,7 @@ huntype(
           {
             if(fflush(fpo) != 0)
             {
-              perror_exit(3); // LCOV_EXCL_LINE
+              perror_exit(3);
             }
 
 #ifdef TRY_SEEK
@@ -448,7 +446,7 @@ huntype(
             want_off++;
             n1 = -1;
 
-            if(!hextype)
+            if(hextype == HEX_NORMAL)
             {
               ++p;
 
@@ -467,7 +465,7 @@ huntype(
 
           if(c == '\n')
           {
-            if(!hextype)
+            if(hextype == HEX_NORMAL)
             {
               want_off = 0;
             }
@@ -483,7 +481,7 @@ huntype(
 
   if(fflush(fpo) != 0)
   {
-    perror_exit(3); // LCOV_EXCL_LINE
+    perror_exit(3);
   }
 
 #ifdef TRY_SEEK
@@ -895,8 +893,8 @@ main(int argc, char* argv[])
   {
     if((fp = fopen(argv[1], BIN_READ(!revert))) == NULL)
     {
-      fprintf(stderr, "%s: ", pname); // LCOV_EXCL_LINE
-      error_exit(2, argv[1]);         // LCOV_EXCL_LINE
+      fprintf(stderr, "%s: ", pname);
+      error_exit(2, argv[1]);
     }
   }
 
@@ -912,16 +910,16 @@ main(int argc, char* argv[])
 
     if(fd < 0)
     {
-      fprintf(stderr, "%s: ", pname); // LCOV_EXCL_LINE
-      error_exit(3, argv[2]);         // LCOV_EXCL_LINE
+      fprintf(stderr, "%s: ", pname);
+      error_exit(3, argv[2]);
     }
 
     fpo = fdopen(fd, BIN_WRITE(revert));
 
     if(fpo == NULL)
     {
-      fprintf(stderr, "%s: ", pname); // LCOV_EXCL_LINE
-      error_exit(3, argv[2]);         // LCOV_EXCL_LINE
+      fprintf(stderr, "%s: ", pname);
+      error_exit(3, argv[2]);
     }
 
     rewind(fpo);
@@ -974,7 +972,7 @@ main(int argc, char* argv[])
       {
         if(fgetc_or_die(fp) == EOF)
         {
-          error_exit(4, "Sorry, cannot seek."); // LCOV_EXCL_LINE
+          error_exit(4, "Sorry, cannot seek.");
         }
       }
     }
