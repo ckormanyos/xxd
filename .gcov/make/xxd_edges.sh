@@ -99,8 +99,17 @@ if [ $exit_code -ne 0 ]; then
   res_08=0
 fi
 
+res_09=1
+echo -n 'abc' | $XXD -g 7 -e 2>/dev/null
+exit_code=$?
+echo
 
-result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08))
+if [ $exit_code -ne 0 ]; then
+  res_09=0
+fi
+
+
+result_total=$((res_00+res_01+res_02+res_03+res_04+res_05+res_06+res_07+res_08+res_09))
 
 
 echo "res_00       : "  "$res_00"
@@ -112,6 +121,7 @@ echo "res_05       : "  "$res_05"
 echo "res_06       : "  "$res_06"
 echo "res_07       : "  "$res_07"
 echo "res_08       : "  "$res_08"
+echo "res_09       : "  "$res_09"
 echo "result_total : "  "$result_total"
 echo "xxd_edges"
 echo
