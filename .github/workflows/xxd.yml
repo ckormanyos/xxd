@@ -95,7 +95,7 @@ jobs:
           name: xxd-macos
           path: ./xxd
   msvc-release-x64:
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -103,7 +103,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: ilammy/msvc-dev-cmd@v1
         with:
-          toolset: 14.2
+          toolset: 14.4
       - name: msvc-release-x64
         shell: cmd
         working-directory: ./
@@ -174,7 +174,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ilammy/msvc-dev-cmd@v1
         with:
-          toolset: 14.2
+          toolset: 14.4
       - name: gcc-clang-native-cmake-ninja
         shell: cmd
         run: |
