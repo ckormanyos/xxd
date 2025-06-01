@@ -16,8 +16,10 @@
         <img src="https://img.shields.io/badge/try%20it%20on-godbolt-green" /></a>
 </p>
 
-This is the well-known hex-dump-type utility `xxd` commonly distributed
-as a part of the [vim-project](https://www.vim.org).
+This is an unofficial adaption of the well-known hex-dump-type utility `xxd`.
+See the [vim-project](https://www.vim.org) for the official `xxd`, which
+is a small sub-component of `vim`.
+
 The version of `xxd` in this repository has been adapted
 for MSVC/GCC/clang standalone build.
 
