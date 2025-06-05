@@ -63,6 +63,8 @@
  *               make prepare -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=g++
  *               make gcov -f make_gcov_01_generic.gmk MY_ALL_COV=0 MY_CC=g++
  * 12.08.2024  Remove unreachable code and refactor "continue" statements.
+ * 18.08.2024  Add more tests and improve coverage.
+ * 05.06.2025  Handle a LINTer issue.
  *
  * (c) 1990-1998 by Juergen Weigert (jnweiger@gmail.com)
  *
@@ -603,7 +605,7 @@ main(int argc, char* argv[])
   unsigned long displayoff = 0;
 
   char* pp;
-  char* varname = NULL;
+  const char* varname = NULL;
   int addrlen = 9;
 
 #ifdef AMIGA
