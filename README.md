@@ -12,16 +12,16 @@
         <img src="https://codecov.io/gh/ckormanyos/xxd/graph/badge.svg?token=EHGEJLSMSL"/></a>
     <a href="https://github.com/ckormanyos/xxd/blob/master/LICENSE">
         <img src="https://img.shields.io/badge/license-GPL%202.0-blue.svg" alt="GNU GENERAL PUBLIC LICENSE 2.0"></a>
-    <a href="https://godbolt.org/z/x8MGxf6fz" alt="godbolt">
+    <a href="https://godbolt.org/z/PKxfn7zbd" alt="godbolt">
         <img src="https://img.shields.io/badge/try%20it%20on-godbolt-green" /></a>
 </p>
+
+The version of `xxd` in `ckormanyos/xxd` has been adapted
+for MSVC/GCC/clang **standalone build**.
 
 This is an unofficial adaption of the well-known hex-dump-type utility `xxd`.
 See the [vim-project](https://www.vim.org) for the official `xxd`, which
 is a small sub-component of `vim`.
-
-The version of `xxd` in this repository has been adapted
-for MSVC/GCC/clang standalone build.
 
 ## Releases and build artifacts
 
@@ -63,7 +63,7 @@ In other words,
 
 ```sh
 cd xxd
-g++ -x c -std=c17 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
+g++ -x c -std=c17 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow src/xxd.c -o xxd
 ```
 
 ### Build on the MacOS command line
@@ -78,7 +78,7 @@ In other words,
 
 ```sh
 cd xxd
-clang++ -x c -std=c17 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion src/xxd.c -o xxd
+clang++ -x c -std=c17 -O2 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow src/xxd.c -o xxd
 ```
 
 ### Platform-independent build with CMake (and ninja)
@@ -103,7 +103,7 @@ The following adaptions have been undertaken.
   - Replace the compiler switch `WIN32` with MSVC's standard `_WIN32`.
   - Run the `xxd.c`/`config.h` files through the [Artistic Style](http://astyle.sourceforge.net/astyle.html) automatic code formatter, using a version of _AStyle_ from somewhere around 2015.
   - Handle Level-3 warnings found in MSVC.
-  - Handle GCC warnings from `-Wall`, `-Wextra`, `-Wpedantic`, `-Wconversion` and `-Wsign-conversion`.
+  - Handle GCC warnings from `-Wall`, `-Wextra`, `-Wpedantic`, `-Wconversion`, `-Wsign-conversion` and `-Wshadow`.
   - Add CI consisting of MSVC/GCC/clang builds and a handful of straightforward test cases.
   - Upload build artifacts in CI for `xxd-x86_64-linux-gnu` and `xxd-win64-msvc`, see also discussion in [issue 11](https://github.com/ckormanyos/xxd/issues/11).
   - Resolve code-technical issues (and/or disable some) found via quality checks performed with CodeSonar, as described in [issue 15](https://github.com/ckormanyos/xxd/issues/15) and [issue 23](https://github.com/ckormanyos/xxd/issues/23).
